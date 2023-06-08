@@ -8,7 +8,7 @@ export const Banner = () => {
           <p className="text-[1.5rem] font-medium leading-[1.875rem] lg:text-[2.25rem] lg:font-semibold lg:leading-[2.81rem] text-center text-white tracking-wide">A melhor plataforma de anúncios de carros do país</p>
         </div>
 
-        <Image src="/images/carro-banner.png" alt="carro esportivo azul" width={500} height={0} className="mt-[-60px] scale-107 h-[308px] w-[565px] md:scale-[1.3] md:mt-0 md:relative md:bottom-[-80px] lg:bottom-[-120px] lg:scale-[2] object-none opacity-80 brightness-50" />
+          <Image src="/images/carro-banner.png" alt="carro esportivo azul" width={500} height={0} className="mt-[-60px] scale-107 h-[308px] w-[565px] md:scale-[1.3] md:mt-0 md:relative md:bottom-[-80px] lg:bottom-[-120px] lg:scale-[2] object-none opacity-[0.6] brightness-[0.8]" />
 
       </div>
   );
