@@ -1,0 +1,10 @@
+/* @import "tailwindcss/base.css";
+@import "tailwindcss/components.css";
+@import "@tailwind utilities"; */
+/* @import "tailwindcss" */
+
+/* @layer utilities {
+  .hamburger-toggle {
+    @apply [&>div]:h-0 [&>div]:bg-white [&>div::before]:before:translate-y-0 [&>div::before]:before:rotate-45 [&>div::before]:after:translate-y-0 [&>div::before]:after:-rotate-45
+  }
+} */
