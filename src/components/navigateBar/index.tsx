@@ -5,6 +5,7 @@ interface INavigateBarProps {
 
 export const NavigateBar = ({page, count}:INavigateBarProps) => {
   const paginateItensnumber = 12
+  const lastPage = Math.ceil(count/paginateItensnumber)
 
   return(
     <div className="w-full h:[12.5rem] sm:h-fi">
@@ -14,10 +15,13 @@ export const NavigateBar = ({page, count}:INavigateBarProps) => {
         :
         null}
 
-        <p className="text-grey-3"><strong>{page}</strong> de {Math.ceil(count/paginateItensnumber)}</p>
+        <p className="text-grey-3"><strong>{page}</strong> de {lastPage}</p>
 
-        {count / paginateItensnumber > 1 ?
-        <p className="text-brand-1 font-bold cursor-pointer">  Seguinte &gt;</p>
+        {page != lastPage ?
+        <p
+        onClick={()=>{page+=1}}
+        className="text-brand-1 font-bold cursor-pointer"
+        >  Seguinte &gt;</p>
         :
         null}
       </div>

@@ -17,9 +17,10 @@ export const FooterComponete = () =>{
 
         <p className='text-[0.875rem] font-normal leading-[1.5rem] text-white'>© 2022 - Todos os direitos reservados.</p>
 
+
         <button
         onClick={scrollToTop}
-        className='w-[53px] h-[50px] bg-grey-1 hover:bg-grey-2 rounded-[4px] flex items-center justify-center'>
+        className='w-[53px] h-[50px] bg-grey-1 hover:bg-grey-2 rounded-[4px] flex items-center justify-center md:ml-[100px]'>
           <MdOutlineKeyboardArrowUp className='fill-slate-50 font-extrabold text-[25px]'/>
         </button>
       </div>
