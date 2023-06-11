@@ -21,7 +21,6 @@ export const MoreImages = () => {
               if(index <= 2){
                 return(
                   <img src={image} alt='imagem do corro anunciado' key={`image${index}`} className='w-[90px] h-[90px] object-contain bg-grey-7 rounded'/>
-                  // <Image width={90} height={90} src={image} alt='imagem do carro anunciado' key={'image'+'index'}/>
                 )
               }
             })}
@@ -32,7 +31,6 @@ export const MoreImages = () => {
               if(index > 2){
                 return(
                   <img src={image} alt='imagem do corro anunciado' key={`image${index}`} className='w-[90px] h-[90px] object-contain bg-grey-7 rounded'/>
-                  // <Image width={90} height={90} src={image} alt='imagem do carro anunciado' key={'image'+'index'}/>
                 )
               }
             })}
