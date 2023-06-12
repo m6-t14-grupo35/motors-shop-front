@@ -7,6 +7,7 @@ import { MoreImages } from '@/components/moreImages'
 import { ButtonFilter } from '@/components/buttonFilter'
 import { AdCard } from '@/components/adCard'
 import Header from "@/components/Header/header";
+import { ListCard } from '@/components/listCard'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,19 +19,15 @@ const user = {
 export default function Home() {
   return (
    <>
-    <Header isLoggedIn={true} user={user}/>;
+    <Header isLoggedIn={true} user={user}/>
     <Banner/>
-    <div className='flex flex-row-reverse'>
-      <div className='flex flex-row flex-wrap gap-12 mt-[54px]'>
-        <AdCard/>
-        <AdCard/>
-        <AdCard/>
-      </div>
     <ButtonFilter/>
+    <div className='flex md:hidden'>
+      <ListCard/>
     </div>
-      <div className='bg-blue-500 h-[700px] flex items-center justify-center'>
-        <MoreImages/>
-      </div>
+    <div className='bg-blue-500 h-[700px] flex items-center justify-center'>
+      <MoreImages/>
+    </div>
     <NavigateBar page={3} count={65}/>
     <FooterComponete/>
    </>
