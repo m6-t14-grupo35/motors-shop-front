@@ -1,42 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Filter } from '../filter'
 
 export const ButtonFilter = () => {
   const [isOpenFilter, setIsOpenFilter] = useState(false);
-  const [renderButton, setRenderButton] = useState(true);
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
   
   const handleToggleFilter = () => {
     setIsOpenFilter(!isOpenFilter);
-    setRenderButton(!renderButton);
   }
 
   return (
     <div className='flex flex-col justify-center items-center my-2'>
-    {
-      renderButton && <button className='button-big-text text-grey-whiteFixed bg-brand-2 rounded w-[279px] h-12  cursor-pointer md:hidden' onClick={handleToggleFilter}>Filtros</button>
-    }
-    {
-      (isOpenFilter || screenWidth >= 768) && (
-        <div className='w-full md:block'>
-          <div className='flex flex-col items-start w-full max-w-sm px-3 py-3'>
+      <button className={`button-big-text text-grey-whiteFixed bg-brand-2 rounded w-[279px] h-12 cursor-pointer md:hidden flex items-center justify-center ${isOpenFilter === false ? 'flex' : 'hidden'}`} onClick={handleToggleFilter}>Filtros</button>
+ 
+      <div className={`w-full md:flex ${isOpenFilter === true ? 'flex' : 'hidden'}`}>
+        <div className='flex flex-col max-h-[100rem]  overflow-x-auto scroll-smooth items-start w-full max-w-sm px-3 py-3'>
             <Filter toggleFilter={handleToggleFilter} />
-          </div>
         </div>
-      )
-    }
+      </div>
   </div>
   )
 }

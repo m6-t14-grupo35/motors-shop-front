@@ -1,4 +1,6 @@
-import { colors } from "./src/styles/colors";
+import { colors } from './src/styles/colors'
+import { fontFamily } from './src/styles/fonts'
+
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -10,6 +12,7 @@ module.exports = {
   theme: {
     extend: {
       colors,
+      fontFamily,
     },
   },
   plugins: [],
