@@ -8,6 +8,9 @@ import { ButtonFilter } from '@/components/buttonFilter'
 import { AdCard } from '@/components/adCard'
 import Header from "@/components/Header/header";
 import { ListCard } from '@/components/listCard'
+import { AdPhoto } from '@/components/adPhoto'
+import { AdDetails } from '@/components/adDetails'
+import { AdDescription } from '@/components/adDescription'
 
 const inter = Inter({ subsets: ["latin"] });
 
