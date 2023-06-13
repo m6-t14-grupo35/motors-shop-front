@@ -23,17 +23,17 @@ const Header = (isLoggedIn: boolean, user: IUser) => {
               setToggle(!toggle);
               const header = document.getElementById("header");
               toggle
-                ? header?.classList.add("sm:h-20", "h-1/2") &&
+                ? header?.classList.add("sm:h-20", "h-screen") &&
                   header.classList.remove("h-20")
-                : header?.classList.remove("sm:h-20", "h-1/2") &&
+                : header?.classList.remove("sm:h-20", "h-screen") &&
                   header?.classList.add("h-20");
               const hamburger = document.getElementById("menuIcon");
               toggle
                 ? hamburger?.classList.add(
                     "before:rotate-45",
                     "after:-rotate-45",
-                    "before:translate-y-0",
-                    "after:translate-y-0",
+                    "before:translate-y-[0px]",
+                    "after:translate-y-[0px]",
                     "bg-white",
                   ) &&
                   hamburger?.classList.remove(
@@ -44,8 +44,8 @@ const Header = (isLoggedIn: boolean, user: IUser) => {
                 : hamburger?.classList.remove(
                     "before:rotate-45",
                     "after:-rotate-45",
-                    "before:translate-y-0",
-                    "after:translate-y-0",
+                    "before:translate-y-[0px]",
+                    "after:translate-y-[0px]",
                     "bg-white",
                   ) &&
                   hamburger?.classList.add(
@@ -55,9 +55,9 @@ const Header = (isLoggedIn: boolean, user: IUser) => {
                   );
               const nav = document.getElementById("navOptions");
               toggle
-                ? nav?.classList.remove("hidden", "border-l-2", "grey-6","space-x-11") &&
+                ? nav?.classList.remove("hidden") &&
                   nav?.classList.add("flex", "bg-white")
-                : nav?.classList.add("hidden", "border-l-2", "grey-6","space-x-11") &&
+                : nav?.classList.add("hidden") &&
                   nav?.classList.remove("flex", "bg-white");
             }}
             className="
@@ -91,10 +91,10 @@ const Header = (isLoggedIn: boolean, user: IUser) => {
         </div>
         <div
           id="navOptions"
-          className="hidden flex-col sm:flex sm:flex-row border-l-2 grey-6 sm:items-center space-x-11 space-y-11 sm:space-y-0 pl-11"
+          className="hidden flex-col sm:flex sm:flex-row sm:border-l-2 sm:grey-6 sm:items-center space-x-0 sm:space-x-11 space-y-11 sm:space-y-0 sm:pl-11"
         >
           <button className="body-1-600 text-grey-2">Fazer Login</button>
-          <button className="w-full body-1-600 border-grey-0 rounded border h-12 py-3 px-7 text-grey-0 ml-0">
+          <button className="w-full sm:w-auto body-1-600 border-grey-0 rounded border h-12 py-3 px-7 text-grey-0 ml-0 sm:m-auto">
             Cadastrar
           </button>
         </div>
