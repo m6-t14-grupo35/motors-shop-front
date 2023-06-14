@@ -1,3 +1,7 @@
+import Header from "@/components/Header/header";
+import { AdDescription } from "@/components/adDescription";
+import { AdDetails } from "@/components/adDetails";
+import { AdPhoto } from "@/components/adPhoto";
 import { Button_2 } from "@/components/buttons";
 import { CommentComponent } from "@/components/comment";
 import { CommentsSection } from "@/components/commentsSection";
@@ -14,7 +18,11 @@ export default function adPage () {
   {userName:"luiz k.", date:new Date(), text:"ja foi batido?"},]
   return(
     <>
-      <div className="h-[2300px] bg-green-300 flex justify-center items-center flex-col gap-4">
+      <Header/>
+      <div className="bg-green-300 flex justify-center items-center flex-col gap-4 py-20">
+        <AdPhoto/>
+        <AdDetails />
+        <AdDescription/>
         <MoreImages/>
         <SellerInfos name='Ismael Silva' description='Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'/>
         <CommentsSection comments={comentarios}/>

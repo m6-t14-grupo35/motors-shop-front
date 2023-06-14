@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 export const CommentComponent = ({userImage, userName, date, text}:IcommentProps) => {
 
   return(
-    <div className="bg-white flex max-w-[351px] rounded lg:max-w-[751px] lg:w-[751px]" >
-      <div className="flex flex-col gap-[12px] max-w-[283px] lg:max-w-full lg:w-full">
-        <div className="flex items-center gap-[8px] w-fit">
+    <div className="bg-white flex w-full max-w-[751px] rounded " >
+      <div className="flex flex-col gap-[12px] max-w-full lg:max-w-full lg:w-full">
+        <div className="flex items-center gap-[8px] w-fit flex-wrap">
 
-          <div className="w-[32px] h-[32px]">
+          <div className="w-[32px] h-[32px] min-w-[32px]">
             {userImage
               ?
                 // eslint-disable-next-line @next/next/no-img-element
