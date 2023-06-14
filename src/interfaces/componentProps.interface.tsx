@@ -1,6 +1,7 @@
 export interface IbuttonProps {
   text: string
-  onClick: () => void
+  onClick?: () => void
+  type?: "button" | "submit" | "reset" | undefined
 }
 
 export interface IsellerInfosProps {
@@ -14,4 +15,15 @@ export interface IcommentProps {
   userName: string
   date: string
   text: string
+}
+
+export interface ImakeCommentProps {
+  userImage?: string
+  userName: string
+}
+
+export interface IcommentSuggestionProps {
+  text: string
+  onclick: () => void
+  key:string
 }

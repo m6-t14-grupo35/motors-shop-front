@@ -1,12 +1,14 @@
 import { IcommentProps } from "@/interfaces/componentProps.interface"
 import { calculateElapsedTime, getInitials } from "@/utils/functions"
+import { useEffect, useState } from "react";
 
 export const CommentComponent = ({userImage, userName, date, text}:IcommentProps) => {
 
   return(
-    <div className="bg-white flex max-w-[351px] rounded" >
-      <div className="flex flex-col gap-[12px] max-w-[283px]">
+    <div className="bg-white flex max-w-[351px] rounded lg:max-w-[751px] lg:w-[751px]" >
+      <div className="flex flex-col gap-[12px] max-w-[283px] lg:max-w-full lg:w-full">
         <div className="flex items-center gap-[8px] w-fit">
+
           <div className="w-[32px] h-[32px]">
             {userImage
               ?
@@ -21,9 +23,10 @@ export const CommentComponent = ({userImage, userName, date, text}:IcommentProps
             }
           </div>
 
-          <p className="text-grey-1 body-2-500">{userName.length >= 14 ? userName.slice(0,12) + '...' : userName}</p>
+          {/* <p className="text-grey-1 body-2-500">{(userName.length >= 14 && window.innerWidth < 1024) ? userName.slice(0,12) + '...' : userName}</p> */}
+          <p className="text-grey-1 body-2-500 lg:hidden">{userName.length >= 14 ? userName.slice(0,12) + '...' : userName}</p>
+          <p className="text-grey-1 body-2-500 hidden lg:block">{userName.length >= 35 ? userName.slice(0,33) + '...' : userName}</p>
           <p className="text-grey-3 body-2-400">{`•  ${calculateElapsedTime(date)}`}</p>
-
         </div>
 
         <p className="text-grey-2 body-2-400">{text}</p>
