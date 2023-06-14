@@ -15,7 +15,7 @@ export const ButtonFilter = () => {
  
       
       <div className={`w-full md:flex justify-center md:place-content-evenly ${isOpenFilter === true ? 'flex' : 'hidden'}`}>
-        <div className='flex flex-col max-h-[90rem] overflow-x-auto scroll-smooth items-start w-full max-w-sm px-3 py-3'>
+        <div className='flex flex-col max-h-[90rem] overflow-x-auto scroll-smooth items-start w-[96.3%] max-w-[28rem] px-3 py-3'>
             <Filter toggleFilter={handleToggleFilter} />
         </div>
         
