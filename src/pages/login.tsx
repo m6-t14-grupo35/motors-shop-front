@@ -6,7 +6,7 @@ export default function Login() {
   return (
     <>
       <Header isLoggedIn={false}/>
-      <FormLogin/>
+      <FormLogin />
       <FooterComponete/>
     </>
 
