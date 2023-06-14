@@ -39,7 +39,7 @@ export const MakeComment = ({userName, userImage}: ImakeCommentProps) =>{
 
         </div>
 
-        <form action={colocarRequisiçãoAqui()} className="flex flex-col gap-[24px]">
+        <form className="flex flex-col gap-[24px] lg:gap-0 lg:mb-[-55px]">
           <input type="text"
             value={commentText}
             onChange={e => setCommentText(e.target.value)}
@@ -52,7 +52,7 @@ export const MakeComment = ({userName, userImage}: ImakeCommentProps) =>{
           className="w-fit px-[1.75rem] py-[0.75rem] rounded
           bg-brand-1 hover:bg-grey-1 text-[1rem] font-bold
            leading-[1.25rem] text-white
-           lg:absolute lg:left-[750px] lg:bottom-[-1090px]"
+           lg:relative lg:left-[610px] lg:bottom-[58px]"
           >
             Comentar
           </button>
