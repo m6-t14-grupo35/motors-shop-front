@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 export const MoreImages = () => {
   const CarImages = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCRIzFGdxgkQINjrTVNZt0LrMtrtGU5S89LXCTMcNXs-ejn8Kj7A3kqfFL2pN8NHkYqew&usqp=CAU',
@@ -12,15 +10,16 @@ export const MoreImages = () => {
 
   return (
     <div className="bg-white flex justify-center items-center h-fit w-fit rounded">
-      <div className="mx-[44px] my-[36px] w-[281px] h-[287px] flex flex-col justify-between">
+      <div className="mx-[35px] lg:mx-[44px] my-[36px] w-[281px] lg:w-[352px] h-[287px] lg:h-[305px] flex flex-col justify-between">
         <h4 className="text-[1.25rem] font-semibold leading-[1.56rem]">Fotos</h4>
 
-        <div className='flex flex-col justify-between h-[230px]'>
+        <div className='flex flex-col justify-between gap-[50px] lg:gap-[32px]'>
           <div className='flex justify-between'>
             {CarImages.map((image, index) =>{
               if(index <= 2){
                 return(
-                  <img src={image} alt='imagem do corro anunciado' key={`image${index}`} className='w-[90px] h-[90px] object-contain bg-grey-7 rounded'/>
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={image} alt='imagem do corro anunciado' key={`image${index}`} className='w-[90px] h-[90px] lg:w-[108px] lg:h-[108px] object-contain bg-grey-7 rounded'/>
                 )
               }
             })}
@@ -30,7 +29,8 @@ export const MoreImages = () => {
             {CarImages.map((image, index) =>{
               if(index > 2){
                 return(
-                  <img src={image} alt='imagem do corro anunciado' key={`image${index}`} className='w-[90px] h-[90px] object-contain bg-grey-7 rounded'/>
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={image} alt='imagem do corro anunciado' key={`image${index}`} className='w-[90px] h-[90px] lg:w-[108px] lg:h-[108px] object-contain bg-grey-7 rounded'/>
                 )
               }
             })}
