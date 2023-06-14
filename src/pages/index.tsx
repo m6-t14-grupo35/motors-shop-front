@@ -29,7 +29,6 @@ export default function Home() {
     </div>
     <ButtonFilter/>
     {/* <div className='bg-blue-500 h-[700px] flex items-center justify-center'>
-      <MoreImages/>
     </div> */}
     <NavigateBar page={3} count={65}/>
     <FooterComponete/>
