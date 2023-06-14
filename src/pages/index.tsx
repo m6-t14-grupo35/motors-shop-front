@@ -24,10 +24,12 @@ export default function Home() {
    <>
     <Header isLoggedIn={true} user={user}/>
     <Banner/>
-    <div className='flex overflow-x-auto md:hidden'>
-      <ListCard/>
+    <div className='max-w-[100rem] mx-auto'>
+      <div className='flex overflow-x-auto mt-8 mx-7 md:hidden'>
+        <ListCard/>
+      </div>
+      <ButtonFilter/>
     </div>
-    <ButtonFilter/>
     <NavigateBar page={3} count={65}/>
     <FooterComponete/>
    </>
