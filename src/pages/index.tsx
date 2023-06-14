@@ -24,7 +24,7 @@ export default function Home() {
    <>
     <Header isLoggedIn={true} user={user}/>
     <Banner/>
-    <div className='flex justify-center overflow-x-auto md:hidden'>
+    <div className='flex overflow-x-auto md:hidden'>
       <ListCard/>
     </div>
     <ButtonFilter/>

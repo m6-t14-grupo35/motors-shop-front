@@ -13,9 +13,9 @@ const Header = (isLoggedIn: boolean, user: IUser) => {
     <>
       <header
         id="header"
-        className="flex-column sm:flex-row fixed top-0 left-0 h-20 z-30 bg-white w-screen flex align-center justify-between border-b-2 grey-6 px-16 flex-wrap"
+        className="flex-column md:flex-row fixed top-0 left-0 h-20 z-30 bg-white w-screen flex align-center justify-between border-b-2 grey-6 px-16 flex-wrap"
       >
-        <div className="flex items-center flex-row justify-between w-screen sm:w-48">
+        <div className="flex items-center flex-row justify-between w-screen md:w-48">
         <Image src={"/Logo.svg"} width={153} height={52} alt="Motors Shop" />
           <div
             id="menuIcon"
@@ -23,9 +23,9 @@ const Header = (isLoggedIn: boolean, user: IUser) => {
               setToggle(!toggle);
               const header = document.getElementById("header");
               toggle
-                ? header?.classList.add("sm:h-20", "h-screen") &&
+                ? header?.classList.add("md:h-20", "h-screen") &&
                   header.classList.remove("h-20")
-                : header?.classList.remove("sm:h-20", "h-screen") &&
+                : header?.classList.remove("md:h-20", "h-screen") &&
                   header?.classList.add("h-20");
               const hamburger = document.getElementById("menuIcon");
               toggle
@@ -61,7 +61,7 @@ const Header = (isLoggedIn: boolean, user: IUser) => {
                   nav?.classList.remove("flex", "bg-white");
             }}
             className="
-          sm:hidden
+          md:hidden
           flex
           w-8 
           h-1 
@@ -91,10 +91,10 @@ const Header = (isLoggedIn: boolean, user: IUser) => {
         </div>
         <div
           id="navOptions"
-          className="hidden flex-col sm:flex sm:flex-row sm:border-l-2 sm:grey-6 sm:items-center space-x-0 sm:space-x-11 space-y-11 sm:space-y-0 sm:pl-11"
+          className="hidden flex-col md:flex md:flex-row md:border-l-2 md:grey-6 md:items-center space-x-0 md:space-x-11 space-y-11 md:space-y-0 md:pl-11"
         >
           <button className="body-1-600 text-grey-2">Fazer Login</button>
-          <button className="w-full sm:w-auto body-1-600 border-grey-0 rounded border h-12 py-3 px-7 text-grey-0 ml-0 sm:m-auto">
+          <button className="w-full md:w-auto body-1-600 border-grey-0 rounded border h-12 py-3 px-7 text-grey-0 ml-0 md:m-auto">
             Cadastrar
           </button>
         </div>
