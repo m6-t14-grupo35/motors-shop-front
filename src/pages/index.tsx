@@ -24,13 +24,13 @@ export default function Home() {
    <>
     <Header isLoggedIn={true} user={user}/>
     <Banner/>
-    <ButtonFilter/>
-    <div className='flex md:hidden'>
+    <div className='flex justify-center overflow-x-auto md:hidden'>
       <ListCard/>
     </div>
-    <div className='bg-blue-500 h-[700px] flex items-center justify-center'>
+    <ButtonFilter/>
+    {/* <div className='bg-blue-500 h-[700px] flex items-center justify-center'>
       <MoreImages/>
-    </div>
+    </div> */}
     <NavigateBar page={3} count={65}/>
     <FooterComponete/>
    </>
