@@ -25,8 +25,8 @@ export default function adPage () {
         <AdDescription/>
         <MoreImages/>
         <SellerInfos name='Ismael Silva' description='Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'/>
-        <CommentsSection comments={comentarios}/>
         <MakeComment userName={user.userName}/>
+        <CommentsSection comments={comentarios}/>
       </div>
       <FooterComponete/>
     </>
