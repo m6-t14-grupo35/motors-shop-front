@@ -17,8 +17,8 @@ export default function adPage () {
       <div className="h-[1900px] bg-green-300 flex justify-center items-center flex-col gap-4">
         <MoreImages/>
         <SellerInfos name='Ismael Silva' description='Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'/>
-        <CommentsSection comments={comentarios}/>
         <MakeComment userName={user.userName}/>
+        <CommentsSection comments={comentarios}/>
       </div>
       <FooterComponete/>
     </>
