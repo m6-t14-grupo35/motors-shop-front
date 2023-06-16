@@ -55,3 +55,5 @@ export default function adPage () {
     </div>
   )
 }
+
+// console.log()
