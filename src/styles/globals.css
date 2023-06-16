@@ -10,3 +10,10 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+
+@layer base {
+  .layout{
+    max-width: 1600px;
+    @apply mx-auto
+  }
+}

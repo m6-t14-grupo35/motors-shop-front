@@ -1,5 +1,7 @@
 import Image from "next/image";
-
+import { AdDescription } from "../adDescription";
+import { AdDetails } from "../adDetails";
+import { AdPhoto } from "../adPhoto";
 export const AdCard = () => {
   return (
     <div className="w-[312px] h-[420px] flex flex-col">
@@ -19,7 +21,7 @@ export const AdCard = () => {
             industry. Lorem...
           </p>
           <div className="flex items-center space-x-2">
-            <p className="h-8 w-8 rounded-full bg-purple-950 gray-0"></p>
+            <p className="h-8 w-8 rounded-full bg-purple-950 gray-0 text-white flex items-center justify-center">A</p>
             <p>Anunciante</p>
           </div>
           <div className="flex flex-row items-center justify-between">

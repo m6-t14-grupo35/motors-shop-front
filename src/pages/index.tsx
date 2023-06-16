@@ -24,10 +24,8 @@ export default function Home() {
    <>
     <Header isLoggedIn={true} user={user}/>
     <Banner/>
-    <div>
-      <div className='flex overflow-x-auto md:hidden'>
-        <ListCard/>
-      </div>
+    <div className='layout flex max-w-[1600px] mt-[50px] justify-between flex-col md:flex-row-reverse'>
+      <ListCard/>
       <ButtonFilter/>
     </div>
     <NavigateBar page={3} count={65}/>

@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export const Banner = () => {
   return (
-      <div className="flex flex-col items-center overflow-hidden
+      <div className="layout flex flex-col items-center overflow-hidden
        md:justify-center h-[625px] md:h-[575px] lg:h-[537px]
        aw-screen bg-gradient-to-b from-neutral-400 from-20% to-black ">
         <div className=" my-[76px] md:my-0 z-20 flex flex-col items-center gap-4 max-w-[90%] md:max-w-none md:absolute">

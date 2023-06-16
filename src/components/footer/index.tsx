@@ -12,7 +12,7 @@ export const FooterComponete = () =>{
 
   return (
     <footer className="bg-grey-0 w-full flex flex-col items-center justify-center h-[310px] md:h-[140px] md:flex-row ">
-      <div className='flex flex-col items-center h-[220px] md:h-fit md:flex-row md:w-[93.5%] justify-between'>
+      <div className='layout flex flex-col items-center h-[220px] md:h-fit md:flex-row md:w-[93.5%] justify-between'>
         <Image src='/images/logo-white.png' alt='logo motors shop' width={153} height={26}/>
 
         <p className='text-[0.875rem] font-normal leading-[1.5rem] text-white'>© 2022 - Todos os direitos reservados.</p>
