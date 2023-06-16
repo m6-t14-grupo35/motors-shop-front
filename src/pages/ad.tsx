@@ -21,7 +21,7 @@ export default function adPage () {
         <Header/>
       <div className="bg-brand-1 w-screen h-[516px] sm:h-[530px] md:h-[550px] lg:h-[576px]"></div>
 
-      <div className="absolute top-0 w-screen left-1/2 transform -translate-x-1/2 bg-red-400">
+      <div className="absolute top-0 w-screen left-1/2 transform -translate-x-1/2">
         <div className="flex justify-center items-center flex-col gap-[10px] py-20 ">
 
           <div className="flex flex-col gap-[20px] items-center lg:flex-row lg:justify-between lg:items-start w-[93.6%] max-w-[1238px]">
