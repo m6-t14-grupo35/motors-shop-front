@@ -11,7 +11,7 @@ export const FooterComponete = () =>{
   };
 
   return (
-    <footer className="bg-grey-0 w-full flex flex-col items-center justify-center h-[310px] md:h-[140px] md:flex-row ">
+    <footer className="bg-grey-0 w-screen flex flex-col items-center justify-center h-[310px] md:h-[140px] md:flex-row ">
       <div className='flex flex-col items-center h-[220px] md:h-fit md:flex-row md:w-[93.5%] justify-between'>
         <Image src='/images/logo-white.png' alt='logo motors shop' width={153} height={26}/>
 

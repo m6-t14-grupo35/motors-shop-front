@@ -15,6 +15,7 @@ module.exports = {
       fontFamily,
       screens:{
         'sw370':'370px',
+        'sw768':'768px',
       },
     },
   },

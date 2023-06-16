@@ -17,7 +17,7 @@ export const MakeComment = ({userName, userImage}: ImakeCommentProps) =>{
   }
 
   return(
-    <div className="py-[36px] px-[34px] lg:px-[44px] bg-white rounded w-[93.6%] max-w-[751px]">
+    <div className="py-[36px] px-[34px] lg:px-[44px] bg-white rounded w-full max-w-[751px]">
       <div className="flex flex-col gap-[24px] w-full">
 
         <div className="flex items-center gap-[8px]">

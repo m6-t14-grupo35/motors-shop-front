@@ -7,7 +7,7 @@ export const SellerInfos = ({photograph, name, description}: IsellerInfosProps) 
   const router = useRouter()
 
   return(
-    <div className="bg-white rounded w-[93.6%] max-w-[351px] lg:max-w-[440px] max-h-fit py-[40px] px-[28px] lg:px-[44px]">
+    <div className="bg-white rounded w-full max-w-[351px] lg:max-w-[440px] lg:w-[440px] max-h-fit py-[40px] px-[28px] lg:px-[44px]">
       <div className="max-w-[295px] lg:max-w-[352px] flex flex-col gap-[28px] justify-center items-center">
         <div className='rounded-[50%] w-[77px] h-[77px] lg:w-[104px] lg:h-[104px]'>
           {photograph

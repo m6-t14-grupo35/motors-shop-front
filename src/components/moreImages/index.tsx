@@ -9,7 +9,7 @@ export const MoreImages = () => {
   ]
 
   return (
-    <div className="bg-white flex w-[93.6%] max-w-[351px] lg:max-w-[440px] px-[35px] lg:px-[44px] py-[36px] justify-center items-center h-fit rounded">
+    <div className="bg-white flex w-full max-w-[351px] lg:max-w-[440px] lg:w-[440px] px-[35px] lg:px-[44px] py-[36px] justify-center items-center h-fit rounded">
       <div className=" w-[281px] lg:w-[352px] h-[287px] lg:h-[305px] flex flex-col justify-between">
         <h4 className="text-[1.25rem] font-semibold leading-[1.56rem]">Fotos</h4>
 
