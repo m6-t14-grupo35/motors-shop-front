@@ -40,6 +40,7 @@ export const MakeComment = ({userName, userImage}: ImakeCommentProps) =>{
         </div>
 
         <form className="flex flex-col gap-[24px] lg:gap-0 lg:mb-[-55px] w-full">
+
           <input type="text"
             value={commentText}
             onChange={e => setCommentText(e.target.value)}

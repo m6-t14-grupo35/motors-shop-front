@@ -11,3 +11,11 @@
   }
 }
 
+
+@layer base {
+  .layout{
+    max-width: 1600px;
+    @apply mx-auto
+  }
+}
+
