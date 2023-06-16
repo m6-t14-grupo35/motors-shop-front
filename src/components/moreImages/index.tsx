@@ -9,12 +9,12 @@ export const MoreImages = () => {
   ]
 
   return (
-    <div className="bg-white flex justify-center items-center px-[35px] lg:px-[44px] py-[36px] w-[93.6%] max-w-[351px] lg:max-w-[440px] h-fit rounded">
-      <div className=" w-full h-[287px] lg:h-[305px] flex flex-col justify-between">
+    <div className="bg-white flex w-full max-w-[351px] lg:max-w-[440px] lg:w-[440px] px-[35px] lg:px-[44px] py-[36px] justify-center items-center h-fit rounded">
+      <div className=" w-[281px] lg:w-[352px] h-[287px] lg:h-[305px] flex flex-col justify-between">
         <h4 className="text-[1.25rem] font-semibold leading-[1.56rem]">Fotos</h4>
 
-        <div className='flex sw370:flex-col justify-around sw370:justify-between gap-[50px] lg:gap-[32px]'>
-          <div className='flex flex-col sw370:flex-row justify-between'>
+        <div className='flex flex-row sw370:flex-col justify-around sw370:justify-between gap-[50px] lg:gap-[32px]'>
+          <div className='flex justify-between flex-col sw370:flex-row'>
             {CarImages.map((image, index) =>{
               if(index <= 2){
                 return(
@@ -25,7 +25,7 @@ export const MoreImages = () => {
             })}
           </div>
 
-          <div className='flex flex-col sw370:flex-row justify-between'>
+          <div className='flex justify-between flex-col sw370:flex-row'>
             {CarImages.map((image, index) =>{
               if(index > 2){
                 return(

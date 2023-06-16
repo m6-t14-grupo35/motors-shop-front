@@ -17,7 +17,7 @@ export const MakeComment = ({userName, userImage}: ImakeCommentProps) =>{
   }
 
   return(
-    <div className="py-[36px] px-[34px] lg:px-[44px] bg-white rounded w-[93.6%] max-w-[351px] lg:max-w-[751px]">
+    <div className="py-[36px] px-[34px] lg:px-[44px] bg-white rounded w-full max-w-[751px]">
       <div className="flex flex-col gap-[24px] w-full">
 
         <div className="flex items-center gap-[8px]">
@@ -39,13 +39,13 @@ export const MakeComment = ({userName, userImage}: ImakeCommentProps) =>{
 
         </div>
 
-        <form
-         className="flex flex-col gap-[24px]">
+        <form className="flex flex-col gap-[24px] lg:gap-0 lg:mb-[-55px] w-full">
+
           <input type="text"
             value={commentText}
             onChange={e => setCommentText(e.target.value)}
             placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
-            className="h-[128px] lg:mb-[-80px] px-4 py-4 text-grey-1 placeholder-grey-3 placeholder-top border-[1px] border-grey-7 "
+            className="w-full h-[128px] px-4 py-4 text-grey-1 placeholder-grey-3 placeholder-top border-[1px] border-grey-7"
           />
 
           <button
@@ -53,7 +53,7 @@ export const MakeComment = ({userName, userImage}: ImakeCommentProps) =>{
           className="w-fit px-[1.75rem] py-[0.75rem] rounded
           bg-brand-1 hover:bg-grey-1 text-[1rem] font-bold
            leading-[1.25rem] text-white
-           lg:relative lg:left-[518px] lg:bottom-[5px]"
+           lg:relative lg:left-[520px] lg:bottom-[58px]"
           >
             Comentar
           </button>
