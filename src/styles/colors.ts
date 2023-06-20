@@ -44,3 +44,7 @@ export const colors = {
     12: '#30007D',
   },
 }
+function rgba(arg0: number, arg1: number, arg2: number, arg3: number) {
+  throw new Error("Function not implemented.");
+}
+

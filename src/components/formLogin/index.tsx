@@ -2,14 +2,19 @@ import { tUserLoginData, userLoginSchema } from "@/schemas/user.schemas"
 import Link from "next/link"
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
+import { useContext } from "react"
+import { AuthContext } from "@/contexts/authContext"
 
 export const FormLogin = () => {
-  const {register, handleSubmit} = useForm<tUserLoginData>({
+  const {login} = useContext(AuthContext)
+
+  const {register, handleSubmit, formState:{errors}} = useForm<tUserLoginData>({
+    mode: "onBlur",
     resolver: zodResolver(userLoginSchema)
   });
 
   const submit = (data: tUserLoginData) => {
-    console.log(data)
+    login(data)
   }
 
   return (
@@ -21,12 +26,16 @@ export const FormLogin = () => {
           <form onSubmit={handleSubmit(submit)}>
             <fieldset className='flex flex-col mb-5'>
               <label className='input-label mb-2'>Usuário</label>
-              <input className='input input-placeholder' placeholder='Digitar usuário' type='text' {...register('user')}/>
+              <input className='input input-placeholder' placeholder='Digitar usuário' type='email' {...register('email')}/>
+              {errors && <p aria-label="error">{errors.email?.message}</p>}
             </fieldset>
+
             <fieldset className='flex flex-col mb-3'>
               <label className='input-label mb-2'>Senha</label>
               <input className='input input-placeholder' placeholder='Digitar senha' type='password' {...register('password')}/>
+              {errors && <p aria-label="error">{errors.password?.message}</p>}
             </fieldset>
+
             <p className='body-2-500 text-right cursor-pointer mb-5'>Esqueci minha senha</p>
             <button type='submit' className="bg-brand-1 rounded w-full h-10 cursor-pointer text-grey-whiteFixed button-big-text mb-6">Entrar</button>
           </form>
