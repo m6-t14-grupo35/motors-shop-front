@@ -18,8 +18,8 @@ export const FormRegister = () => {
 
   return (
     <>
-      <div className='w-full h-full bg-grey-8 flex items-center justify-center'>
-        <div className='w-[93%] bg-grey-10 min-w-[16rem] max-w-[25.7rem] h-fit rounded py-11 px-7'>
+      <div className='w-full h-full bg-grey-8 flex items-center justify-center pt-20'>
+        <div className='w-[93%] bg-grey-10 min-w-[16rem] max-w-[25.7rem] h-fit rounded py-11 px-7 my-20'>
           <h2 className='heading-5-500 mb-6'>Cadastro</h2>
           <form onSubmit={handleSubmit(submit)}>
             <h3 className='body-2-500'>Informações pessoais</h3>
@@ -56,7 +56,7 @@ export const FormRegister = () => {
 
             <fieldset className='flex flex-col mb-5'>
               <label className='input-label mb-2'>Descrição</label>
-              <textarea placeholder='Digitar descrição' className='rounded pl-3 pt-3 border border-grey-7 placeholder:text-grey-3 h-12 outline-1 outline-brand-2' {...register('description')}/>
+              <textarea rows={3} placeholder='Digitar descrição' className='rounded pl-3 pt-3 border border-grey-7 placeholder:text-grey-3 outline-1 outline-brand-2' {...register('description')}/>
               {errors && <p aria-label="error">{errors.description?.message}</p>}
             </fieldset>
 
