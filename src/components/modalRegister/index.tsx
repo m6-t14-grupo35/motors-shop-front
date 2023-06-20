@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
-import ReactDOM from 'react-dom';
 import {GrClose} from 'react-icons/gr'
 
 interface IPropsModalRegister {
@@ -34,7 +33,7 @@ export const ModalRegister = ({toogleModal}: IPropsModalRegister) => {
     router.push('/login')
   }
 
-  return ReactDOM.createPortal (
+  return (
     <div className='bg-grey-4 bg-opacity-50 flex justify-center items-start fixed h-screen w-screen top-0 right-0'>
       <div className='min-w-[16rem] max-w-[33rem] w-4/5 bg-grey-whiteFixed rounded-lg mt-20' ref={ref}>
         <header className='flex justify-between items-center h-14 px-6 py-4'>
@@ -47,7 +46,6 @@ export const ModalRegister = ({toogleModal}: IPropsModalRegister) => {
           <button className='h-10 bg-brand-1 w-[8.25rem] rounded text-sm font-semibold text-grey-whiteFixed' onClick={() => redirect()}>Ir para o login</button>
         </div>
       </div>
-    </div>,
-    document.body
+    </div>
   )
 }
