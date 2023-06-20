@@ -19,9 +19,9 @@ export const FormLogin = () => {
 
   return (
     <>
-      <div className='w-full h-screen bg-grey-8 flex items-center justify-center'>
+      <div className='w-full h-fit bg-grey-8 flex items-center justify-center pt-20'>
 
-        <div className='w-[93%] bg-grey-10 min-w-[16rem] max-w-[25.7rem] h-fit rounded py-11 px-7'>
+        <div className='w-[93%] bg-grey-10 min-w-[16rem] max-w-[25.7rem] h-fit rounded py-11 px-7 my-20'>
           <h2 className='heading-5-500 mb-6'>Login</h2>
           <form onSubmit={handleSubmit(submit)}>
             <fieldset className='flex flex-col mb-5'>
