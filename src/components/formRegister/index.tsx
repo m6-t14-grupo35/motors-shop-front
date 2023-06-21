@@ -8,7 +8,7 @@ export const FormRegister = () => {
   const {register: registerUser} = useContext(AuthContext)
   const [isSellerSelected, setIsSellerSelected] = useState(false)
 
-  const {register, handleSubmit, formState:{errors}, setValue} = useForm<tUserRegisterData>({
+  const {register, handleSubmit, formState:{errors}, setValue, reset} = useForm<tUserRegisterData>({
     mode: "onBlur",
     resolver: zodResolver(userRegisterSchema)
   });
@@ -25,6 +25,7 @@ export const FormRegister = () => {
 
   const submit = (data: tUserRegisterData) => {
     registerUser(data)
+    reset()
   }
 
   return (
@@ -136,7 +137,6 @@ export const FormRegister = () => {
             <button type='submit' className="bg-brand-1 rounded w-full h-10 cursor-pointer text-grey-whiteFixed button-big-text mb-6">Finalizar cadastro</button>
           </form>
         </div>
-
       </div>
     </>
   )
