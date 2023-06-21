@@ -12,11 +12,16 @@
   }
 }
 
+@layer components {
+  .input {
+    @apply rounded pl-3 border border-grey-7 placeholder:text-grey-3 h-12 outline-1 outline-brand-2 w-full;
+  }
+}
 
 @layer base {
-  .layout{
+  .layout {
     max-width: 1600px;
-    @apply mx-auto
+    @apply mx-auto;
   }
 }
 

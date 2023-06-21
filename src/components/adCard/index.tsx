@@ -2,11 +2,27 @@ import Image from "next/image";
 import { AdDescription } from "../adDescription";
 import { AdDetails } from "../adDetails";
 import { AdPhoto } from "../adPhoto";
+
+const user = {
+  name: "Caio",
+
+};
+
+interface iAd {
+  brand: string;
+  model: string;
+  year: string;
+  km: number;
+  price: number;
+  description: string;
+  isSold: boolean;
+}
+
 export const AdCard = () => {
   return (
     <div className="w-[312px] h-[420px] flex flex-col">
       <div className="h-[152px]">
-        <div className="bg-grey-7 border-2 grey-7  hover:border-brand-1 flex justify-center">
+        <div className="bg-grey-7 border-2 grey-7 relative hover:border-brand-1 flex justify-center">
           <Image
             width={262}
             height={150.28}
@@ -15,13 +31,17 @@ export const AdCard = () => {
           />
         </div>
         <div className="space-y-3">
-          <p className="body-1-600">Product title stays here - max 1 line</p>
+          <p className="body-1-600 truncate">
+            Product title stays here - max 1 line
+          </p>
           <p className="body-1-400">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem...
           </p>
           <div className="flex items-center space-x-2">
-            <p className="h-8 w-8 rounded-full bg-purple-950 gray-0 text-white flex items-center justify-center">A</p>
+            <p className="h-8 w-8 rounded-full bg-purple-950 gray-0 text-white flex items-center justify-center">
+              A
+            </p>
             <p>Anunciante</p>
           </div>
           <div className="flex flex-row items-center justify-between">

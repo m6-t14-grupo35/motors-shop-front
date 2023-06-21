@@ -1,4 +1,4 @@
-import { apiKenzieKars } from "@/services";
+import { apiKenzieKars } from "@/services/api";
 import { useEffect, useState } from "react";
 import {AiOutlineClose} from "react-icons/ai";
 
