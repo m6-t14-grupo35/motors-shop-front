@@ -21,3 +21,36 @@ export const Button_2 = ({text, onClick, type = undefined}: IbuttonProps) => {
     </button>
   )
 }
+
+export const Button_3 = ({text, onClick, type = undefined, height = 1}: IbuttonProps) => {
+  return(
+    <button
+    type={type}
+    className={`w-fit px-[1.75rem] ${height === 1 ? 'py-[0.75rem]' : 'py-[1rem]'} rounded hover:opacity-70  text-[1rem] font-bold leading-[1.25rem] bg-grey-6 text-grey-2`}
+    onClick={() => onClick()}>
+      {text}
+    </button>
+  )
+}
+
+export const Button_7 = ({text, onClick, type = undefined, height = 1}: IbuttonProps) => {
+  return(
+    <button
+    type={type}
+    className={`w-fit px-[1.75rem] ${height === 1 ? 'py-[0.75rem]' : 'py-[1rem]'} rounded bg-brand-4 hover:opacity-70  text-[1rem] font-bold leading-[1.25rem] text-brand-1`}
+    onClick={() => onClick()}>
+      {text}
+    </button>
+  )
+}
+
+export const Button_24 = ({text, type = undefined, height = 1}: IbuttonProps) => {
+  return(
+    <button
+      type={type}
+      className={`w-fit px-[1.75rem] ${height === 1 ? 'py-[0.75rem]' : 'py-[1rem]'} rounded hover:opacity-70  text-[1rem] font-bold leading-[1.25rem] bg-brand-3 text-brand-4`}
+    >
+      {text}
+    </button>
+  )
+}
