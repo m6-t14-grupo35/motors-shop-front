@@ -27,13 +27,13 @@ export const FormLogin = () => {
             <fieldset className='flex flex-col mb-5'>
               <label className='input-label mb-2'>Usuário</label>
               <input className='input input-placeholder' placeholder='Digitar usuário' type='email' {...register('email')}/>
-              {errors && <p aria-label="error">{errors.email?.message}</p>}
+              {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.email?.message}</p>}
             </fieldset>
 
             <fieldset className='flex flex-col mb-3'>
               <label className='input-label mb-2'>Senha</label>
               <input className='input input-placeholder' placeholder='Digitar senha' type='password' {...register('password')}/>
-              {errors && <p aria-label="error">{errors.password?.message}</p>}
+              {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.password?.message}</p>}
             </fieldset>
 
             <p className='body-2-500 text-right cursor-pointer mb-5'>Esqueci minha senha</p>
