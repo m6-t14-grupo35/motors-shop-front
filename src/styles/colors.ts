@@ -45,5 +45,6 @@ export const colors = {
   },
   bg: {
     1: "#f1f3f5",
+    50:"	rgba(0,0,0,0.500)"
   },
 }

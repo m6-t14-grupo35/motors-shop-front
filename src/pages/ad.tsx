@@ -7,6 +7,7 @@ import { CommentComponent } from "@/components/comment";
 import { CommentsSection } from "@/components/commentsSection";
 import { FooterComponete } from "@/components/footer";
 import { MakeComment } from "@/components/makeComment";
+import { ModalAddAd } from "@/components/modals/addAd";
 import { MoreImages } from "@/components/moreImages";
 import { SellerInfos } from "@/components/sellerInfos";
 import { IcommentProps } from "@/interfaces/componentProps.interface";
@@ -19,6 +20,7 @@ export default function adPage () {
   return(
     <div className="bg-bg-1">
         <Header/>
+        <ModalAddAd closeFunction={() =>console.log('finge que fechou')}/>
       <div className="bg-brand-1 w-screen h-[596px] sm:h-[610px] md:h-[630px] lg:h-[656px]"></div>
 
       <div className="absolute top-0 w-screen left-1/2 transform -translate-x-1/2">
