@@ -8,6 +8,7 @@ import React, { forwardRef, Ref } from "react";
 import { MdClose } from "react-icons/md"
 import { IaddImageInputProps, IediteAdProps } from '@/interfaces/componentProps.interface';
 import { Button_24, Button_3, Button_7 } from '@/components/buttons';
+import { api } from '@/services/api';
 
 const maxYear = new Date().getFullYear() + 1
 
@@ -30,6 +31,7 @@ const schema = z.object({
 })
 
 export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
+  // const token = localStorage.getItem('@MS-token')
   const [imageCount, setImageCount] = useState(2);
 
   const addImageField = () => {
@@ -38,16 +40,16 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
     }
   };
 
-  const registerFunction = async (data:IaddAd) => {
-    // const response = await api.patch("ads/", data, {
-    //   headers:{
-    //     Authorization:`Bearer ${token}`
-    //   }
-    // })
-    // if(response.status == 200){
-    //
-    // }
-  }
+  // const registerFunction = async (data:IaddAd) => {
+  //   const response = await api.patch(`ads/${ad.id}`, data, {
+  //     headers:{
+  //       Authorization:`Bearer ${token}`
+  //     }
+  //   })
+  //   if(response.status == 200){
+
+  //   }
+  // }
 
   const {register, handleSubmit, formState: {errors}} = useForm<IaddAd>({
     resolver: zodResolver(schema),
@@ -62,7 +64,7 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
       <div className='w-full max-w-[520px] bg-white rounded py-[20px] px-[30px] overflow-y-auto max-h-[96%] custom-scrollbar'>
         <div>
           <div className='w-full flex justify-between '>
-            <h2 className='text-[1rem] font-bold leading-[1.25rem] mb-[15px]'>Criar anúncio </h2>
+            <h2 className='text-[1rem] font-bold leading-[1.25rem] mb-[15px]'>Editar anúncio </h2>
             <button onClick={() => closeFunction()}>
               <MdClose className='text-grey-3 text-[20px] font-extrabold'/>
             </button>

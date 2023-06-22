@@ -1,3 +1,5 @@
+import { type } from "os"
+
 export interface IbuttonProps {
   text: string
   onClick?: () => void
@@ -45,11 +47,15 @@ export interface IaddImageInputProps {
   children: React.ReactNode;
 }
 
+
+type Ifuels = "gasolina" | "alchool" | 'outros'
+
 export interface IadOptional {
+  id:string
   brand?: string
   model?: string
   year?: number
-  fuel?: string
+  fuel?: Ifuels
   milage?: number
   collor?: string
   priceFIPE?: number
