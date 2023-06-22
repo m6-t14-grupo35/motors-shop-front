@@ -44,3 +44,20 @@ export interface IaddImageInputProps {
   number: number
   children: React.ReactNode;
 }
+
+export interface IadOptional {
+  brand?: string
+  model?: string
+  year?: number
+  fuel?: string
+  milage?: number
+  collor?: string
+  priceFIPE?: number
+  selePrice?: number
+  description?: string
+}
+
+export interface IediteAdProps {
+  ad: IadOptional
+  closeFunction: () => void
+}

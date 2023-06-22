@@ -6,22 +6,22 @@ import { IaddAd } from '@/interfaces/forms.interfaces';
 import { useState } from "react";
 import React, { forwardRef, Ref } from "react";
 import { MdClose } from "react-icons/md"
-import { IaddImageInputProps } from '@/interfaces/componentProps.interface';
+import { IaddImageInputProps, IediteAdProps } from '@/interfaces/componentProps.interface';
 import { Button_24, Button_3, Button_7 } from '@/components/buttons';
 
 const maxYear = new Date().getFullYear() + 1
 
 const schema = z.object({
-  brand: z.string().nonempty('insira a marca'),
-  model: z.string().nonempty('insira o modelo'),
-  year: z.coerce.number().min(1800, 'ano invalido').max(maxYear, 'ano invalido'),
-  fuel: z.string().min(0,'insira um valor positivo'),
-  milage: z.coerce.number().min(0,'insira um valor positivo'),
-  collor: z.string().nonempty('insira a marca'),
-  priceFIPE: z.coerce.number().min(0,'insira um valor positivo'),
-  selePrice: z.coerce.number().min(0,'insira um valor positivo'),
-  description: z.string().nonempty('insira uma descrição'),
-  image_1:z.string().url('url invalida').nonempty('imagem obrigatoria'),
+  brand: z.string().nonempty('insira a marca').optional(),
+  model: z.string().nonempty('insira o modelo').optional(),
+  year: z.coerce.number().min(1800, 'ano invalido').max(maxYear, 'ano invalido').optional(),
+  fuel: z.string().min(0,'insira um valor positivo').optional(),
+  milage: z.coerce.number().min(0,'insira um valor positivo').optional(),
+  collor: z.string().nonempty('insira a marca').optional(),
+  priceFIPE: z.coerce.number().min(0,'insira um valor positivo').optional(),
+  selePrice: z.coerce.number().min(0,'insira um valor positivo').optional(),
+  description: z.string().nonempty('insira uma descrição').optional(),
+  image_1:z.string().url('url invalida').nonempty('imagem obrigatoria').optional(),
   image_2:z.string().optional(),
   image_3:z.string().optional(),
   image_4:z.string().url('url invalida').optional(),
@@ -29,7 +29,7 @@ const schema = z.object({
   image_6:z.string().url('url invalida').optional()
 })
 
-export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
+export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
   const [imageCount, setImageCount] = useState(2);
 
   const addImageField = () => {
@@ -39,7 +39,7 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
   };
 
   const registerFunction = async (data:IaddAd) => {
-    // const response = await api.post("ads/", data, {
+    // const response = await api.patch("ads/", data, {
     //   headers:{
     //     Authorization:`Bearer ${token}`
     //   }
@@ -76,6 +76,7 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
               placeholder='Mercedes Benz'
               required={true}
               error={errors.brand?.message}
+              value={ad.brand && ad.brand}
               {...register('brand')}
             />
 
@@ -86,6 +87,7 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
               placeholder='A 200 CGI ADVANCE'
               required={true}
               error={errors.model?.message}
+              value={ad.model && ad.model}
               {...register('model')}
             />
 
@@ -97,6 +99,8 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
                 placeholder='2018'
                 required={true}
                 error={errors.year?.message}
+                // @ts-ignore
+                value={ad.year && ad.year}
                 {...register('year')}
               />
 
@@ -129,6 +133,8 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
                 placeholder='30.000'
                 required={true}
                 error={errors.milage?.message}
+                // @ts-ignore
+                value={ad.milage && ad.milage}
                 {...register('milage')}
               />
 
@@ -139,6 +145,7 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
                 placeholder='Branco'
                 required={true}
                 error={errors.collor?.message}
+                value={ad.collor && ad.collor}
                 {...register('collor')}
               />
             </div>
@@ -151,6 +158,8 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
                   placeholder='RS 48.000,00'
                   required={true}
                   error={errors.priceFIPE?.message}
+                  // @ts-ignore
+                  value={ad.priceFIPE && ad.priceFIPE}
                   {...register('priceFIPE')}
               />
 
@@ -161,6 +170,8 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
                 placeholder='R$ 50.000,00'
                 required={true}
                 error={errors.selePrice?.message}
+                // @ts-ignore
+                value={ad.selePrice && ad.selePrice}
                 {...register('selePrice')}
               />
             </div>
@@ -180,6 +191,7 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
                 required={true}
                 className="resize-none px-[14px] block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-[1.5px] outline-brand-2"
                 {...register('description')}
+                value={ad.description && ad.description}
               />
 
               {errors.description?.message && <p className="text-sm/5 text-red-700 absolute">errors.descripitions.message </p>}
