@@ -67,3 +67,5 @@ export interface IediteAdProps {
   ad: IadOptional
   closeFunction: () => void
 }
+
+export type IstateProvisorio = null | "add" | "edite"
