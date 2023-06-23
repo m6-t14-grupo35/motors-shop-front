@@ -36,11 +36,11 @@ export const FormLogin = () => {
               {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.password?.message}</p>}
             </fieldset>
 
-            <p className='body-2-500 text-right cursor-pointer mb-5'>Esqueci minha senha</p>
+            <Link href={'/resetPassword'}><p className='body-2-500 text-right cursor-pointer mb-5'>Esqueci minha senha</p></Link>
             <button type='submit' className="bg-brand-1 rounded w-full h-10 cursor-pointer text-grey-whiteFixed button-big-text mb-6">Entrar</button>
           </form>
           <p className='body-2-400 text-center mb-6'>Ainda não possui conta?</p>
-          <Link href={"/register"}><button  className='button-big-text rounded w-full h-10 cursor-pointer border border-grey-4'>Cadastrar</button></Link>
+          <Link href={"/register"}><button className='button-big-text rounded w-full h-10 cursor-pointer border border-grey-4'>Cadastrar</button></Link>
         </div>
 
       </div>
