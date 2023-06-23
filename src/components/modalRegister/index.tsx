@@ -1,14 +1,13 @@
-import { AuthContext } from '@/contexts/authContext';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
 import {GrClose} from 'react-icons/gr'
 
 interface IPropsModalRegister {
   toogleModal: () => void
 }
 
-export const ModalRegister = ({toogleModal}: IPropsModalRegister) => {
-  const {isOpenModal} = useContext(AuthContext)
+export const ModalRegister = ({toogleModal}:  IPropsModalRegister) => {
   const router = useRouter()
   const ref = useRef<HTMLDivElement>(null)
 
@@ -17,28 +16,26 @@ export const ModalRegister = ({toogleModal}: IPropsModalRegister) => {
       if(!ref.current) return;
 
       if(!event.target) return;
-      
+
       if(!ref.current.contains(event.target as HTMLElement)) {
         toogleModal()
       }
     }
-    
-    if (isOpenModal) {
-      window.addEventListener("mousedown", handleClick);
-  
-      return () => {
-        window.removeEventListener("mousedown", handleClick);
-      }
+
+    window.addEventListener("mousedown", handleClick);
+
+    return () => {
+      window.removeEventListener("mousedown", handleClick);
     }
-  }, [isOpenModal]);
-  
+  }, []);
+
   const redirect = () => {
     toogleModal()
     router.push('/login')
   }
 
-  return (
-    <div className={`bg-grey-4 bg-opacity-50 ${isOpenModal ? 'flex' : 'hidden'} justify-center items-start fixed z-50 h-screen w-screen top-0 right-0`}>
+  return ReactDOM.createPortal (
+    <div className='bg-grey-4 bg-opacity-50 flex justify-center items-start fixed h-screen w-screen top-0 right-0'>
       <div className='min-w-[16rem] max-w-[33rem] w-4/5 bg-grey-whiteFixed rounded-lg mt-20' ref={ref}>
         <header className='flex justify-between items-center h-14 px-6 py-4'>
           <h2 className='heading-7-500'>Sucesso!</h2>
@@ -50,6 +47,7 @@ export const ModalRegister = ({toogleModal}: IPropsModalRegister) => {
           <button className='h-10 bg-brand-1 w-[8.25rem] rounded text-sm font-semibold text-grey-whiteFixed' onClick={() => redirect()}>Ir para o login</button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
