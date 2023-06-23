@@ -1,13 +1,13 @@
 import { z } from 'zod'
 
 export const userLoginSchema = z.object({
-  email: z.string().email('Deve ser um email válido').nonempty('Usuário é obrigatório'),
+  email: z.string().email('Deve ser um e-mail válido').nonempty('Usuário é obrigatório'),
   password: z.string().nonempty('Senha é obrigatória')
 });
 
 export const userRegisterSchema = z.object({
   name: z.string().nonempty('Nome é obrigatório').max(40, 'Nome deve ter, no máximo, 40 caracteres'),
-  email: z.string().email('Deve ser um email válido').nonempty('Email é obrigatório').max(128, 'Email deve ter, no máximo, 128 caracteres'),
+  email: z.string().nonempty('E-mail é obrigatório').email('Deve ser um e-mail válido').max(128, 'E-mail deve ter, no máximo, 128 caracteres'),
   cpf: z.string().nonempty('CPF é obrigatório').length(11, 'CPF deve ter 11 caracteres'),
   phone_number: z.string().nonempty('Celular é obrigatório').max(30, 'Celular deve ter, no máximo, 30 caracteres'),
   birthdate: z.string().nonempty('Data de nascimento é obrigatória'),
@@ -20,8 +20,20 @@ export const userRegisterSchema = z.object({
   complement: z.string().nonempty('Complemento é obrigatório').max(30, 'Complemento deve ter, no máximo, 30 caracteres'), */
   is_seller: z.boolean().default(false),
   password: z.string().nonempty('Senha é obrigatória').min(8, 'Senha deve ter, no mínimo, 8 caracteres'),
-  confirmation: z.string(),
-}).refine((data) => data.password === data.confirmation, {
+  confirmation: z.string().min(1, 'Confirmação de senha é obrigatória'),
+}).refine(({ password, confirmation }) => password === confirmation, {
+  message: 'Senhas estão diferentes',
+  path: ['confirmation']
+})
+
+export const retrievePasswordSchema = z.object({
+  email: z.string().nonempty('E-mail é obrigatório').email('Deve ser um e-mail válido')
+})
+
+export const updatePasswordSchema = z.object({
+  newPassword: z.string().nonempty('Senha é obrigatória').min(8, 'Senha deve ter, no mínimo, 8 caracteres'),
+  confirmation: z.string().min(1, 'Confirmação de senha é obrigatória'),
+}).refine(({ newPassword, confirmation }) => newPassword === confirmation, {
   message: 'Senhas estão diferentes',
   path: ['confirmation']
 })
@@ -29,3 +41,7 @@ export const userRegisterSchema = z.object({
 export type tUserLoginData = z.infer<typeof userLoginSchema>;
 
 export type tUserRegisterData = z.infer<typeof userRegisterSchema>;
+
+export type tRetrievePasswordData = z.infer<typeof retrievePasswordSchema>;
+
+export type tUpdatePasswordData = z.infer<typeof updatePasswordSchema>;
