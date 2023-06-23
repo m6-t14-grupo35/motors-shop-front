@@ -36,7 +36,7 @@ export default function User() {
           </div>
           <div className="flex-col justify-center md:pl-[60px] w-screen gap-[40px] mx-[60px]">
             <h1 className="heading-5-600 pl-[60px] md:pl-0 py-[100px]">Anúncios</h1>
-            <ProfileListCard />
+            <ListCard />
           </div>
           <FooterComponete />
         </div>
