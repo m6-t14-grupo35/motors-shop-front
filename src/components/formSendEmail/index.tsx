@@ -1,9 +1,13 @@
+import { AuthContext } from "@/contexts/authContext"
 import { retrievePasswordSchema, tRetrievePasswordData } from "@/schemas/user.schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
+import { useContext } from "react"
 import { useForm } from "react-hook-form"
 
 export const FormSendEmail = () => {
+  const {sendEmail} = useContext(AuthContext)
+
   const {handleSubmit, register, formState:{errors}} = useForm<tRetrievePasswordData>({
     mode: "onBlur",
     resolver: zodResolver(retrievePasswordSchema)
@@ -11,6 +15,7 @@ export const FormSendEmail = () => {
 
   const submit = (data: tRetrievePasswordData) => {
     console.log(data)
+    sendEmail(data)
   }
 
   return (
