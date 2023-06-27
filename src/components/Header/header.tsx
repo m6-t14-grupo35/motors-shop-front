@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { MenuIcon } from "../hamburger/hamburguer";
 import { useState } from "react";
+import Link from "next/link";
 
 interface IUser {
   name: String;
@@ -17,12 +18,15 @@ const Header = (isLoggedIn: boolean, user: IUser) => {
       >
         <div className="layout md:items-center flex flex-col md:flex-row justify-between w-full">
           <div className="flex justify-between items-center">
-            <Image
-              src={"/Logo.svg"}
-              width={153}
-              height={52}
-              alt="Motors Shop"
-            />
+            <Link href={"/"}>
+              <Image
+                src={"/Logo.svg"}
+                width={153}
+                height={52}
+                alt="Motors Shop"
+                className="cursor-pointer"
+              />
+            </Link>
 
             <div
               id="menuIcon"
@@ -100,10 +104,11 @@ const Header = (isLoggedIn: boolean, user: IUser) => {
             id="navOptions"
             className="hidden flex-col md:flex md:flex-row md:border-l-2 md:grey-6 md:items-center space-x-0 md:space-x-11 space-y-11 md:space-y-0 md:pl-11"
           >
-            <button className="body-1-600 text-grey-2">Fazer Login</button>
-            <button className="w-full md:w-auto body-1-600 border-grey-0 rounded border h-12 py-3 px-7 text-grey-0 ml-0 md:m-auto">
-              Cadastrar
-            </button>
+            <Link href={"/login"}><button className="body-1-600 text-grey-2">Fazer Login</button></Link>
+            <Link href={"/register"}>
+              <button className="w-full md:w-auto body-1-600 border-grey-0 rounded border h-12 py-3 px-7 text-grey-0 ml-0 md:m-auto">Cadastrar</button>
+            </Link> 
+              
           </div>
         </div>
       </header>
