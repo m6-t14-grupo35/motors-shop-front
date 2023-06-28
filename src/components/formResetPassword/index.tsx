@@ -1,5 +1,7 @@
+import { AuthContext } from "@/contexts/authContext"
 import { tUpdatePasswordData, updatePasswordSchema } from "@/schemas/user.schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useContext } from "react"
 import { useForm } from "react-hook-form"
 
 interface IFormResetPasswordProps {
@@ -7,6 +9,8 @@ interface IFormResetPasswordProps {
 }
 
 export const FormResetPassword = ({token}: IFormResetPasswordProps) => {
+  const {resetPassword} = useContext(AuthContext)
+
   const {handleSubmit, register, formState:{errors}} = useForm<tUpdatePasswordData>({
     mode: "onBlur",
     resolver: zodResolver(updatePasswordSchema)
@@ -14,6 +18,7 @@ export const FormResetPassword = ({token}: IFormResetPasswordProps) => {
 
   const submit = (data: tUpdatePasswordData) => {
     console.log(data)
+    resetPassword(data, token)
   }
 
   return (
