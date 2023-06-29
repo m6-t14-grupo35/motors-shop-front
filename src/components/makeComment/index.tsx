@@ -3,18 +3,32 @@ import { Button_2 } from "../buttons"
 import { ImakeCommentProps } from "@/interfaces/componentProps.interface"
 import { useState } from "react";
 import { CommentSuggestion } from "../commentSuggestion";
+import { api } from "@/services/api";
+import { parseCookies } from "nookies";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 export const MakeComment = ({userName, userImage}: ImakeCommentProps) =>{
-  const sugestions = ['Gostei muito', 'incrível', 'Recomendarei para meus amigos!',];
+  const sugestions = ['Gostei muito!', 'incrível', 'Recomendarei para meus amigos!',];
   const [commentText, setCommentText] = useState('');
+  const token = parseCookies().motorsShopToken
+
+  // const postComment = async() => {
+  //   const responseAd = await api.post("ads/", data, {
+  //     headers:{
+  //       Authorization:`Bearer ${token}`
+  //     }
+  //   })
+  // }
 
   const selectSugestion = (sugestion:string) => {
     setCommentText(sugestion);
   };
 
-  const colocarRequisiçãoAqui = () => {
-    console.log('você clicou no botão de postar comentario')
-  }
+  // const {register, handleSubmit, formState: {errors}} = useForm<IaddAd>({
+  //   resolver: zodResolver(addAdSchema),
+  //   shouldUnregister: false
+  // });
+  // const onSubmit: SubmitHandler<IaddAd> = data => {postComment(data)};
 
   return(
     <div className="py-[36px] px-[34px] lg:px-[44px] bg-white rounded w-full max-w-[751px]">
@@ -41,10 +55,10 @@ export const MakeComment = ({userName, userImage}: ImakeCommentProps) =>{
 
         <form className="flex flex-col gap-[24px] lg:gap-0 lg:mb-[-55px] w-full">
           <textarea
-             value={commentText}
-             onChange={e => setCommentText(e.target.value)}
-             placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
-             className="w-full h-[128px] px-4 py-4 text-grey-1 placeholder-grey-3 placeholder-top border-[1px] border-grey-7 outline-[1.5px] outline-brand-2"
+            value={commentText}
+            onChange={e => setCommentText(e.target.value)}
+            placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
+            className="w-full h-[128px] px-4 py-4 text-grey-1 placeholder-grey-3 placeholder-top border-[1px] border-grey-7 outline-[1.5px] outline-brand-2"
           />
 
           <button

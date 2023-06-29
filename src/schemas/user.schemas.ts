@@ -26,6 +26,27 @@ export const userRegisterSchema = z.object({
   path: ['confirmation']
 })
 
+export const userEditeSchema = z.object({
+  name: z.string().nonempty('Nome é obrigatório').max(40, 'Nome deve ter, no máximo, 40 caracteres').optional(),
+  email: z.string().email('Deve ser um email válido').nonempty('Email é obrigatório').max(128, 'Email deve ter, no máximo, 128 caracteres').optional(),
+  cpf: z.string().nonempty('CPF é obrigatório').length(11, 'CPF deve ter 11 caracteres').optional(),
+  phone_number: z.string().nonempty('Celular é obrigatório').max(30, 'Celular deve ter, no máximo, 30 caracteres').optional(),
+  birthdate: z.string().nonempty('Data de nascimento é obrigatória').optional(),
+  description: z.string().nonempty('Descrição é obrigatória').optional(),
+  is_seller: z.boolean().default(false).optional(),
+  password: z.string().nonempty('Senha é obrigatória').min(8, 'Senha deve ter, no mínimo, 8 caracteres').optional(),
+  // @ts-ignore
+  confirmation: z.string().refine((value, data) => {
+    return !data.password || value === data.password;
+  }, {
+    message: 'Senhas estão diferentes',
+    path: ['confirmation']
+  }).optional(),
+});
+
+
 export type tUserLoginData = z.infer<typeof userLoginSchema>;
 
 export type tUserRegisterData = z.infer<typeof userRegisterSchema>;
+
+export type tUserEditeData = z.infer<typeof userEditeSchema>;

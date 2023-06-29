@@ -56,11 +56,17 @@ export interface IadOptional {
   model?: string
   year?: number
   fuel?: Ifuels
-  milage?: number
-  collor?: string
+  km?: number
+  color?: string
   priceFIPE?: number
-  selePrice?: number
+  price?: number
   description?: string
+  cover?: string
+  image_1?: string
+  image_2?: string
+  image_3?: string
+  image_4?: string
+  image_5?: string
 }
 
 export interface IediteAdProps {
@@ -68,4 +74,10 @@ export interface IediteAdProps {
   closeFunction: () => void
 }
 
-export type IstateProvisorio = null | "add" | "edite"
+export type IstateProvisorio = null | "add" | "edite" | "editeProfile" | "deleteProfile"
+
+export interface IconfirmationDeleteAccount {
+  closeFunction: () => void
+  openConfirmation: () => void
+}
+

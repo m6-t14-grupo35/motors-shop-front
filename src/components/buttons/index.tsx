@@ -15,8 +15,9 @@ export const Button_2 = ({text, onClick, type = undefined}: IbuttonProps) => {
   return(
     <button
     type={type}
-    className="w-fit px-[1.75rem] py-[0.75rem] rounded bg-brand-1 hover:bg-grey-1 text-[1rem] font-bold leading-[1.25rem] text-white"
-    onClick={() => onClick()}>
+    className="w-fit h-fit px-[1.75rem] py-[0.75rem] rounded bg-brand-1 hover:bg-grey-1 text-[1rem] font-bold leading-[1.25rem] text-white"
+    onClick={() => onClick()}
+    >
       {text}
     </button>
   )
@@ -39,6 +40,30 @@ export const Button_7 = ({text, onClick, type = undefined, height = 1}: IbuttonP
     type={type}
     className={`w-fit px-[1.75rem] ${height === 1 ? 'py-[0.75rem]' : 'py-[1rem]'} rounded bg-brand-4 hover:opacity-70  text-[1rem] font-bold leading-[1.25rem] text-brand-1`}
     onClick={() => onClick()}>
+      {text}
+    </button>
+  )
+}
+
+export const Button_17 = ({text, onClick, type = undefined, height = 1}: IbuttonProps) => {
+  return(
+    <button
+      type={type}
+      className={`w-fit px-[1.75rem] ${height === 1 ? 'py-[0.75rem]' : 'py-[1rem]'} rounded hover:opacity-70  text-[1rem] font-bold leading-[1.25rem] bg-alert-3 text-alert-1`}
+      onClick={() => onClick()}
+    >
+      {text}
+    </button>
+  )
+}
+
+export const Button_18 = ({text,onClick, type = undefined, height = 1}: IbuttonProps) => {
+  return(
+    <button
+      type={type}
+      className={`w-fit px-[1.75rem] ${height === 1 ? 'py-[0.75rem]' : 'py-[1rem]'} rounded hover:opacity-70  text-[1rem] font-bold leading-[1.25rem] bg-alert-2 text-alert-1`}
+      onClick={() => onClick()}
+    >
       {text}
     </button>
   )

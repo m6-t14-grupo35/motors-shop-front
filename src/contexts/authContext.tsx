@@ -40,7 +40,7 @@ export const AuthProvider = ({children}: IProps) => {
   const login = async (data: tUserLoginData) => {
     api.post('auth/', data)
     .then((response) => {
-      setCookie(null, 'motorsshop.token', response.data.token, {
+      setCookie(null, 'motorsShopToken', response.data.token, {
         path: "/"
       })
     })
@@ -53,7 +53,7 @@ export const AuthProvider = ({children}: IProps) => {
       console.log(error)
     })
   }
-  
+
   return (
     <AuthContext.Provider value={{register, login, isOpenModal, toogleModalRegister}}>
       {children}

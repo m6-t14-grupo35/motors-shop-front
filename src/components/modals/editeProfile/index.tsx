@@ -1,16 +1,21 @@
-import { AuthContext } from "@/contexts/authContext";
-import { tUserRegisterData, userRegisterSchema } from "@/schemas/user.schemas";
+import { tUserEditeData, tUserRegisterData, userEditeSchema } from "@/schemas/user.schemas";
+import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext, useState } from "react";
+import { parseCookies } from "nookies";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { MdClose } from "react-icons/md";
+import { Button_1, Button_18, Button_2, Button_3 } from "@/components/buttons";
+import { IconfirmationDeleteAccount } from "@/interfaces/componentProps.interface";
 
-export const FormRegister = () => {
-  const {register: registerUser} = useContext(AuthContext)
-  const [isSellerSelected, setIsSellerSelected] = useState(false)
+export const ModalEditeProfile = ({closeFunction, openConfirmation}:IconfirmationDeleteAccount) =>{
+  const [isSellerSelected, setIsSellerSelected] = useState<boolean>(false)
+  const token = parseCookies().motorsShopToken
 
   const {register, handleSubmit, formState:{errors}, setValue, reset} = useForm<tUserRegisterData>({
     mode: "onBlur",
-    resolver: zodResolver(userRegisterSchema)
+    resolver: zodResolver(userEditeSchema)
   });
 
   const handleBuyerClick = () => {
@@ -23,16 +28,31 @@ export const FormRegister = () => {
     setValue('is_seller', true)
   };
 
-  const submit = (data: tUserRegisterData) => {
-    registerUser(data)
-    reset()
+  const submit = async (data: tUserEditeData) => {
+    const response = await api.patch("users/", data, {
+      headers:{
+        Authorization:`Bearer ${token}`
+      }
+    })
+
+    if(response.status == 200){
+      toast.success('Perfil atualizado com sucesso')
+      console.log(response);
+    }else{
+      toast.error('algo deu errado')
+      console.log(response);
+    }
   }
 
-  return (
-    <>
-      <div className='w-full h-full bg-grey-8 flex items-center justify-center pt-20'>
-        <div className='w-[93%] bg-grey-10 min-w-[16rem] max-w-[25.7rem] h-fit rounded py-11 px-7 my-20'>
-          <h2 className='heading-5-500 mb-6'>Cadastro</h2>
+  return(
+    <div className='fixed inset-0 flex justify-center items-center w-screen bg-bg-50 z-50'>
+      <div className='w-full max-w-[520px] bg-white rounded py-[20px] px-[30px] overflow-y-auto max-h-[96%] custom-scrollbar'>
+          <div className='w-full flex justify-between '>
+            <h2 className='text-[1rem] font-bold leading-[1.25rem] mb-[15px]'>Criar anúncio </h2>
+            <button onClick={() => closeFunction()}>
+              <MdClose className='text-grey-3 text-[20px] font-extrabold'/>
+            </button>
+          </div>
           <form onSubmit={handleSubmit(submit)}>
             <h3 className='body-2-500 mb-5'>Informações pessoais</h3>
 
@@ -72,45 +92,6 @@ export const FormRegister = () => {
               {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.description?.message}</p>}
             </fieldset>
 
-            {/* <h3 className='body-2-500'>Informações de endereço</h3>
-            <fieldset className='flex flex-col mb-5'>
-              <label className='input-label mb-2'>CEP</label>
-              <input className='input input-placeholder' placeholder='00000.000' type='number' {...register('zipCode')}/>
-              {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.zipCode?.message}</p>}
-            </fieldset>
-
-            <fieldset className='flex flex-col mb-5'>
-              <label className='input-label mb-2'>Estado</label>
-              <input className='input input-placeholder' placeholder='Digitar Estado' type='text' {...register('state')}/>
-              {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.state?.message}</p>}
-            </fieldset>
-
-            <fieldset className='flex flex-col mb-5'>
-              <label className='input-label mb-2'>Cidade</label>
-              <input className='input input-placeholder' placeholder='00/00/00' type='text' {...register('city')}/>
-              {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.city?.message}</p>}
-            </fieldset>
-
-            <fieldset className='flex flex-col mb-5'>
-              <label className='input-label mb-2'>Rua</label>
-              <input className='input input-placeholder' placeholder='Digitar rua' type='text' {...register('street')}/>
-              {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.street?.message}</p>}
-            </fieldset>
-
-            <div className='flex gap-3'>
-              <fieldset className='flex flex-col mb-5'>
-                <label className='input-label mb-2'>Número</label>
-                <input className='input input-placeholder' placeholder='Digitar número' type='number' {...register('number')}/>
-                {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.number?.message}</p>}
-              </fieldset>
-
-              <fieldset className='flex flex-col mb-5'>
-                <label className='input-label mb-2'>Complemento</label>
-                <input className='input input-placeholder' placeholder='Ex: apart 307' type='text' {...register('complement')}/>
-                {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.complement?.message}</p>}
-              </fieldset>
-            </div> */}
-
             <fieldset className='flex flex-col mb-5'>
               <label className='input-label mb-2'>Tipo de conta</label>
 
@@ -133,11 +114,13 @@ export const FormRegister = () => {
               {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.confirmation?.message}</p>}
             </fieldset>
 
-            <p className='body-2-500 text-right cursor-pointer mb-5'>Esqueci minha senha</p>
-            <button type='submit' className="bg-brand-1 rounded w-full h-10 cursor-pointer text-grey-whiteFixed button-big-text mb-6">Finalizar cadastro</button>
+            <div className="flex flex-wrap sw515:justify-between gap-y-[8px]">
+              <Button_3 text="Cancelar" type="button" onClick={() => closeFunction()}/>
+              <Button_18 text="Excluir Perfil" type="button" onClick={() => openConfirmation()}/>
+              <Button_2 text="Salvar alterações" type="submit"/>
+            </div>
           </form>
-        </div>
       </div>
-    </>
+    </div>
   )
 }

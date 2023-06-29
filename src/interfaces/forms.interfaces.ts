@@ -3,15 +3,15 @@ export interface IaddAd {
   model: string
   year: number
   fuel: string
-  milage: number
-  collor: string
+  km: number
+  color: string
   priceFIPE: number
-  selePrice: number
+  price: number
   description: string
-  image_1: string
+  cover: string
+  image_1?: string
   image_2?: string
   image_3?: string
   image_4?: string
   image_5?: string
-  image_6?: string
 }

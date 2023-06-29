@@ -2,13 +2,13 @@ import Header from "@/components/Header/header";
 import { AdDescription } from "@/components/adDescription";
 import { AdDetails } from "@/components/adDetails";
 import { AdPhoto } from "@/components/adPhoto";
-import { Button_2 } from "@/components/buttons";
-import { CommentComponent } from "@/components/comment";
 import { CommentsSection } from "@/components/commentsSection";
 import { FooterComponete } from "@/components/footer";
 import { MakeComment } from "@/components/makeComment";
 import { ModalAddAd } from "@/components/modals/addAd";
+import { DeleteAccountConfirmation } from "@/components/modals/deleteAccounteConfirmation";
 import { ModalEditeAd } from "@/components/modals/editeAd";
+import { ModalEditeProfile } from "@/components/modals/editeProfile";
 import { MoreImages } from "@/components/moreImages";
 import { SellerInfos } from "@/components/sellerInfos";
 import { IadOptional, IcommentProps, IstateProvisorio } from "@/interfaces/componentProps.interface";
@@ -20,9 +20,14 @@ export default function adPage () {
   {userName:"juscelino kubitschek", date:"1960-05-10T17:53:02.298399Z", text:"amanhã eu vejo."},
   {userName:"luiz k.", date:new Date(), text:"ja foi batido?"},]
   const adProvisorio: IadOptional = {id:'qualquerid', brand:"uma marca", model:"um modelo", year:2023, fuel:"gasolina", milage:5000, collor:"uma cor", priceFIPE:52000, selePrice:40000, description:"esse uma descrição bem curta" }
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [seletorProvisorio, setSeletorProvisorio] = useState<IstateProvisorio>(null)
   const fecharProvisorio = () => {
     setSeletorProvisorio(null)
+  }
+
+  const openConfirmation = () => {
+    setSeletorProvisorio('deleteProfile')
   }
 
   return(
@@ -32,10 +37,13 @@ export default function adPage () {
         <div className="fixed top-20 z-50">
           <button className="h-14 w-14 bg-yellow-400 rounded-[50%] border-[4px] border-orange-400" onClick={() => setSeletorProvisorio('add')}>modal Ad</button>
           <button className="h-14 w-14 bg-yellow-400 rounded-[50%] border-[4px] border-orange-400" onClick={() => setSeletorProvisorio('edite')}>modal Edite</button>
+          <button className="h-14 w-14 bg-yellow-400 rounded-[50%] border-[4px] border-orange-400" onClick={() => setSeletorProvisorio('editeProfile')}>Edite profile</button>
+          <button className="h-14 w-14 bg-yellow-400 rounded-[50%] border-[4px] border-orange-400" onClick={() => setSeletorProvisorio('deleteProfile')}>Delete profile</button>
         </div>
-
         {seletorProvisorio === "add" && <ModalAddAd closeFunction={() =>fecharProvisorio()}/>}
         {seletorProvisorio === "edite" && <ModalEditeAd closeFunction={() =>fecharProvisorio()} ad={adProvisorio}/>}
+        {seletorProvisorio === "editeProfile" && <ModalEditeProfile openConfirmation={() => openConfirmation()} closeFunction={() =>fecharProvisorio()}/>}
+        {seletorProvisorio === "deleteProfile" && <DeleteAccountConfirmation closeFunction={() =>fecharProvisorio()}/>}
 
         </>
       <div className="bg-brand-1 w-screen h-[596px] sm:h-[610px] md:h-[630px] lg:h-[656px]"></div>
