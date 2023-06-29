@@ -1,4 +1,4 @@
-import { tAddressData, tAddressPatialData } from "@/schemas/address.schemas";
+import { tUpdateAddressData } from "@/schemas/user.schemas";
 import { api } from "@/services/api";
 import { useRouter } from "next/router";
 import { Dispatch, ReactNode, SetStateAction, useState } from "react";
@@ -10,26 +10,26 @@ interface IProps {
 }
 
 interface IUserProviderData {
-  isOpenModal: boolean
-  toogleModal: () => void
-  setIsOpenModal: Dispatch<SetStateAction<boolean>>
+  isOpenModalAddress: boolean
+  toogleModalAddress: () => void
+  setIsOpenModalAddress: Dispatch<SetStateAction<boolean>>
 }
 
 export const UserContext = createContext({} as IUserProviderData);
 
 export const UserProvider = ({children}: IProps) => {
-  const [isOpenModal, setIsOpenModal] = useState(false)
+  const [isOpenModalAddress, setIsOpenModalAddress] = useState(false)
   const router = useRouter()
 
-  const toogleModal = () => {
-    setIsOpenModal(!isOpenModal)
+  const toogleModalAddress = () => {
+    setIsOpenModalAddress(!isOpenModalAddress)
   }
 
-  const updateAddress = (data: tAddressPatialData, token: string) => {
+  const updateAddress = (data: tUpdateAddressData, token: string) => {
     api.patch(`addresses/${token}`, data)
     .then(() => {
       toast.success('Endereço editado com sucesso!')
-      toogleModal()
+      toogleModalAddress()
     })
     .catch((error) => {
       console.log(error)
@@ -38,7 +38,7 @@ export const UserProvider = ({children}: IProps) => {
   }
 
   return (
-    <UserContext.Provider value={{isOpenModal, setIsOpenModal, toogleModal}}>
+    <UserContext.Provider value={{isOpenModalAddress, setIsOpenModalAddress, toogleModalAddress}}>
       {children}
     </UserContext.Provider>
   )
