@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { ReactNode, createContext, useState } from "react";
 import { toast } from "react-toastify";
 import { setCookie } from "nookies";
+import Cookies from 'js-cookie';
 
 interface IProps {
   children: ReactNode
@@ -28,6 +29,21 @@ export const AuthProvider = ({children}: IProps) => {
     setIsOpenModal(!isOpenModal)
   }
 
+
+  const me = (token: string) => {
+    api.get('users/', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then((response) => {
+      setCookie(null, 'motorsshop.idUser', response.data[0].id)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
   const register = (data: tUserRegisterData) => {
     api.post('users/', data)
     .then(() => {
@@ -41,10 +57,11 @@ export const AuthProvider = ({children}: IProps) => {
 
   const login = async (data: tUserLoginData) => {
     api.post('auth/', data)
-    .then((response) => {
+    .then((response) => {  
       setCookie(null, 'motorsshop.token', response.data.token, {
         path: "/"
       })
+      me(response.data.token)
     })
     .then(() => {
       toast.success('Usuário logado com sucesso!')
