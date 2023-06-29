@@ -12,7 +12,7 @@ export const userRegisterSchema = z.object({
   phone_number: z.string().nonempty('Celular é obrigatório').max(30, 'Celular deve ter, no máximo, 30 caracteres'),
   birthdate: z.string().nonempty('Data de nascimento é obrigatória'),
   description: z.string().nonempty('Descrição é obrigatória'),
-  zipCode: z.string().nonempty('CEP é obrigatório').max(8, 'CEP deve ter, no máximo, 8 caracteres'),
+  zip_code: z.string().nonempty('CEP é obrigatório').length(8, 'CEP deve ter 8 caracteres'),
   state: z.string().nonempty('Estado é obrigatório').max(30, 'Estado deve ter, no máximo, 30 caracteres'),
   city: z.string().nonempty('Cidade é obrigatória').max(30, 'Cidade deve ter, no máximo, 30 caracteres'),
   street: z.string().nonempty('Rua é obrigatória').max(50, 'Rua deve ter, no máximo, 50 caracteres'),
@@ -27,7 +27,7 @@ export const userRegisterSchema = z.object({
 })
 
 export const addressUpdateSchema = z.object({
-  zipCode: z.string().max(8, 'CEP deve ter, no máximo, 8 caracteres').optional(),
+  zip_code: z.string().max(8, 'CEP deve ter, no máximo, 8 caracteres').optional(),
   state: z.string().max(30, 'Estado deve ter, no máximo, 30 caracteres').optional(),
   city: z.string().max(30, 'Cidade deve ter, no máximo, 30 caracteres').optional(),
   street: z.string().max(50, 'Rua deve ter, no máximo, 50 caracteres').optional(),

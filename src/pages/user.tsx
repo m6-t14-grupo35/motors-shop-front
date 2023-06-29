@@ -1,6 +1,7 @@
 import Header from "@/components/Header/header";
 import { FooterComponete } from "@/components/footer";
 import { ListCard } from "@/components/listCard";
+import { ModalEditAddress } from "@/components/modalEditAddress";
 import { ProfileListCard } from "@/components/userListCard";
 import { UserContext } from "@/contexts/userContext";
 import { useContext } from "react";
@@ -11,7 +12,7 @@ const user = {
 };
 
 export default function User() {
-  const {toogleModal} = useContext(UserContext)
+  const {setIsOpenModalAddress} = useContext(UserContext)
 
   return (
     <div className="bg-grey-8">
@@ -24,7 +25,7 @@ export default function User() {
               A
             </div>
 
-              {/* <button className="h-10 w-12 rounded bg-orange-500 cursor-pointer" onClick={() => toogleModal()}>Modal</button> */}
+              <button className="h-10 w-12 rounded bg-orange-500 cursor-pointer absolute top-20 left-5" onClick={() => setIsOpenModalAddress(true)}>Modal</button>
               <div className="flex">
                 <p className="heading-6-600">Anunciante Anônimo</p>
                 <h2 className="bg-brand-4 text-brand-1 rounded py-1 px-2 body-2-400">
@@ -45,6 +46,7 @@ export default function User() {
           <FooterComponete />
         </div>
       </div>
+      <ModalEditAddress/>
     </div>
   );
 }

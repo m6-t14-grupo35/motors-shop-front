@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { ReactNode, createContext, useState } from "react";
 import { toast } from "react-toastify";
 import { setCookie } from "nookies";
-import Cookies from 'js-cookie';
 
 interface IProps {
   children: ReactNode
@@ -17,6 +16,7 @@ interface IAuthProviderData {
   toogleModalRegister: () => void
   sendEmail: (data: tRetrievePasswordData) => void
   resetPassword: (data: tUpdatePasswordData, token: string) => void
+  me: (token: string) => void
 }
 
 export const AuthContext = createContext({} as IAuthProviderData);
@@ -28,7 +28,6 @@ export const AuthProvider = ({children}: IProps) => {
   const toogleModalRegister = () => {
     setIsOpenModal(!isOpenModal)
   }
-
 
   const me = (token: string) => {
     api.get('users/', {
@@ -98,7 +97,7 @@ export const AuthProvider = ({children}: IProps) => {
   }
   
   return (
-    <AuthContext.Provider value={{register, login, isOpenModal, toogleModalRegister, sendEmail, resetPassword}}>
+    <AuthContext.Provider value={{register, login, isOpenModal, toogleModalRegister, sendEmail, resetPassword, me}}>
       {children}
     </AuthContext.Provider>
   )

@@ -7,6 +7,7 @@ import { useContext } from "react";
 
 export default function Register() {
   const {toogleModalRegister} = useContext(AuthContext)
+  
   return (
     <>
       <Header isLoggedIn={false}/>

@@ -72,24 +72,26 @@ export const FormRegister = () => {
               {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.description?.message}</p>}
             </fieldset>
 
-            {/* <h3 className='body-2-500'>Informações de endereço</h3>
+            <h3 className='body-2-500 mb-5'>Informações de endereço</h3>
             <fieldset className='flex flex-col mb-5'>
               <label className='input-label mb-2'>CEP</label>
-              <input className='input input-placeholder' placeholder='00000.000' type='number' {...register('zipCode')}/>
-              {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.zipCode?.message}</p>}
+              <input className='input input-placeholder' placeholder='00000.000' type='number' {...register('zip_code')}/>
+              {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.zip_code?.message}</p>}
             </fieldset>
 
-            <fieldset className='flex flex-col mb-5'>
-              <label className='input-label mb-2'>Estado</label>
-              <input className='input input-placeholder' placeholder='Digitar Estado' type='text' {...register('state')}/>
-              {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.state?.message}</p>}
-            </fieldset>
+            <div className='flex gap-3'>
+              <fieldset className='flex flex-col mb-5'>
+                <label className='input-label mb-2'>Estado</label>
+                <input className='input input-placeholder' placeholder='Digitar Estado' type='text' {...register('state')}/>
+                {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.state?.message}</p>}
+              </fieldset>
 
-            <fieldset className='flex flex-col mb-5'>
-              <label className='input-label mb-2'>Cidade</label>
-              <input className='input input-placeholder' placeholder='00/00/00' type='text' {...register('city')}/>
-              {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.city?.message}</p>}
-            </fieldset>
+              <fieldset className='flex flex-col mb-5'>
+                <label className='input-label mb-2'>Cidade</label>
+                <input className='input input-placeholder' placeholder='Digitar cidade' type='text' {...register('city')}/>
+                {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.city?.message}</p>}
+              </fieldset>
+            </div>
 
             <fieldset className='flex flex-col mb-5'>
               <label className='input-label mb-2'>Rua</label>
@@ -109,7 +111,7 @@ export const FormRegister = () => {
                 <input className='input input-placeholder' placeholder='Ex: apart 307' type='text' {...register('complement')}/>
                 {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.complement?.message}</p>}
               </fieldset>
-            </div> */}
+            </div>
 
             <fieldset className='flex flex-col mb-5'>
               <label className='input-label mb-2'>Tipo de conta</label>
@@ -133,8 +135,7 @@ export const FormRegister = () => {
               {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.confirmation?.message}</p>}
             </fieldset>
 
-            <p className='body-2-500 text-right cursor-pointer mb-5'>Esqueci minha senha</p>
-            <button type='submit' className="bg-brand-1 rounded w-full h-10 cursor-pointer text-grey-whiteFixed button-big-text mb-6">Finalizar cadastro</button>
+            <button type='submit' className="bg-brand-1 rounded w-full h-10 cursor-pointer text-grey-whiteFixed button-big-text mt-5">Finalizar cadastro</button>
           </form>
         </div>
       </div>
