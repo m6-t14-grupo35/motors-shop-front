@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 export const MoreImages = () => {
   const CarImages = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCRIzFGdxgkQINjrTVNZt0LrMtrtGU5S89LXCTMcNXs-ejn8Kj7A3kqfFL2pN8NHkYqew&usqp=CAU',
@@ -11,26 +9,28 @@ export const MoreImages = () => {
   ]
 
   return (
-    <div className="bg-white flex justify-center items-center h-fit w-fit rounded">
-      <div className="mx-[44px] my-[36px] w-[281px] h-[287px] flex flex-col justify-between">
+    <div className="bg-white flex w-full max-w-[351px] lg:max-w-[440px] lg:w-[440px] px-[35px] lg:px-[44px] py-[36px] justify-center items-center h-fit rounded">
+      <div className=" w-[281px] lg:w-[352px] h-[287px] lg:h-[305px] flex flex-col justify-between">
         <h4 className="text-[1.25rem] font-semibold leading-[1.56rem]">Fotos</h4>
 
-        <div className='flex flex-col justify-between h-[230px]'>
-          <div className='flex justify-between'>
+        <div className='flex flex-row sw370:flex-col justify-around sw370:justify-between gap-[50px] lg:gap-[32px]'>
+          <div className='flex justify-between flex-col sw370:flex-row'>
             {CarImages.map((image, index) =>{
               if(index <= 2){
                 return(
-                  <img src={image} alt='imagem do corro anunciado' key={`image${index}`} className='w-[90px] h-[90px] object-contain bg-grey-7 rounded'/>
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={image} alt='imagem do corro anunciado' key={`image${index}`} className='w-[90px] h-[90px] lg:w-[108px] lg:h-[108px] object-contain bg-grey-7 rounded'/>
                 )
               }
             })}
           </div>
 
-          <div className='flex justify-between'>
+          <div className='flex justify-between flex-col sw370:flex-row'>
             {CarImages.map((image, index) =>{
               if(index > 2){
                 return(
-                  <img src={image} alt='imagem do corro anunciado' key={`image${index}`} className='w-[90px] h-[90px] object-contain bg-grey-7 rounded'/>
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={image} alt='imagem do corro anunciado' key={`image${index}`} className='w-[90px] h-[90px] lg:w-[108px] lg:h-[108px] object-contain bg-grey-7 rounded'/>
                 )
               }
             })}

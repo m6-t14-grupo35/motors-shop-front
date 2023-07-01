@@ -13,6 +13,10 @@ module.exports = {
     extend: {
       colors,
       fontFamily,
+      screens:{
+        'sw370':'370px',
+        'sw768':'768px',
+      },
     },
   },
   plugins: [],

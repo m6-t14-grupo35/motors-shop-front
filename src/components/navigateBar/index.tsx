@@ -8,8 +8,8 @@ export const NavigateBar = ({page, count}:INavigateBarProps) => {
   const lastPage = Math.ceil(count/paginateItensnumber)
 
   return(
-    <div className="w-full h:[12.5rem] sm:h-fi">
-      <div className="text-[1.5rem] font-semibold leading-[1.875rem]  flex flex-col items-center justify-center h-[90%] sm:h-fit gap-[30px] sm:flex-row">
+    <div className="w-full h:[12.5rem] sm:h-fi py-[22px] mb-[80px]">
+      <div className="layout text-[1.5rem] font-semibold leading-[1.875rem]  flex flex-col items-center justify-center h-[90%] sm:h-fit gap-[30px] sm:flex-row">
         {page > 1 ?
         <p className="text-brand-1 font-bold cursor-pointer">&lt; Anterior</p>
         :

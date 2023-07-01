@@ -67,7 +67,7 @@
 }
 
 .button-big-text {
-  @apply text-[1rem] font-semibold ;
+  @apply text-[1rem] font-semibold;
 }
 
 .button-medium-text {
@@ -81,5 +81,3 @@
 .input-label {
   @apply text-[0.875rem] font-medium leading-[1.058rem];
 }
-/* #dsfds */
-
