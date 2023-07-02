@@ -15,11 +15,12 @@ interface iAd {
   year: string;
   km: number;
   price: number;
+  priceFIPE: number;
   description: string;
   isSold: boolean;
 }
 
-export const AdCard = ({ isSold }: iAd) => {
+export const AdCard = ({ isSold, price, priceFIPE }: iAd) => {
   const router = useRouter()
   const { pathname } = router
   return (
@@ -43,6 +44,11 @@ export const AdCard = ({ isSold }: iAd) => {
             src={"/CarroCard.svg"}
             alt="Card do Carro"
           />
+          {
+            price < priceFIPE && pathname === "/"? (
+              <p className="flex justify-center w-[15px] h-[27px] absolute top-0 right-0 bg-random-7 text-white">$</p>
+            ): null
+          }
         </div>
         <div className="space-y-3">
           <p className="body-1-600 truncate">
@@ -69,7 +75,7 @@ export const AdCard = ({ isSold }: iAd) => {
                 2019
               </button>
             </div>
-            <p className="heading-7-600">R$00.000,00</p>
+            <p className="heading-7-600">R${price}</p>
           </div>
           {pathname === "/admin" && (
               <div className="flex flex-row gap-[16px]">
