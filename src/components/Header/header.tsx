@@ -1,15 +1,34 @@
 import Image from "next/image";
 import { MenuIcon } from "../hamburger/hamburguer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import nookies, { parseCookies } from "nookies";
+import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
+import { api } from "@/services/api";
+import { iUser } from "@/interfaces/cards.interfaces";
 
-interface IUser {
-  name: String;
-  email: String;
-}
-const Header = (isLoggedIn: boolean, user: IUser) => {
+const Header = () => {
   const [toggle, setToggle] = useState(true);
+  const [user, setUser] = useState<iUser | null>(null)
+  const cookies = parseCookies();
+  useEffect(() => {
+    const getUser = async () => {
 
+      const response = await api.get(`users/${cookies["motorsshop.idUser"]}`, {
+        headers: {
+          Authorization: `Bearer ${cookies["motorsshop.token"]}`,
+        },
+      });
+
+      const loggedUser: iUser = response.data
+      console.log(loggedUser)
+      response.status === 401? null : setUser(loggedUser)
+    }
+    cookies["motorsshop.token"] ? getUser() : null
+  }, [cookies])
+
+  console.log(user)
   return (
     <>
       <header
@@ -104,11 +123,27 @@ const Header = (isLoggedIn: boolean, user: IUser) => {
             id="navOptions"
             className="hidden flex-col md:flex md:flex-row md:border-l-2 md:grey-6 md:items-center space-x-0 md:space-x-11 space-y-11 md:space-y-0 md:pl-11"
           >
-            <Link href={"/login"}><button className="body-1-600 text-grey-2">Fazer Login</button></Link>
-            <Link href={"/register"}>
-              <button className="w-full md:w-auto body-1-600 border-grey-0 rounded border h-12 py-3 px-7 text-grey-0 ml-0 md:m-auto">Cadastrar</button>
-            </Link> 
-              
+            {user !== null ? (
+              <div className="flex justify-center items-center w-[139px] h-[32px] gap-[8px]">
+                <div className="h-8 w-8 rounded-full bg-purple-950 gray-0 text-white flex items-center justify-center text-center">
+                  {user?.name.charAt(0)}
+                </div>
+                <p>{user?.name}</p>
+              </div>
+            ) : (
+              <>
+                <Link href={"/login"}>
+                  <button className="body-1-600 text-grey-2">
+                    Fazer Login
+                  </button>
+                </Link>
+                <Link href={"/register"}>
+                  <button className="w-full md:w-auto body-1-600 border-grey-0 rounded border h-12 py-3 px-7 text-grey-0 ml-0 md:m-auto">
+                    Cadastrar
+                  </button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -116,19 +151,18 @@ const Header = (isLoggedIn: boolean, user: IUser) => {
   );
 };
 
-///////////// Lógica para quando estiver logado
-// {
-//   (isLoggedIn ? (
-//     <div className="flex row border-l-2 grey-6 align-middle justify-center">
-//       <Image width={32} height={32} className="rounded-full" src="/vercel.svg" alt="Logo Perfil"/>
-//       <p>{user.name}</p>
-//     </div>
-//   ) : (
-//     <div>
-//       <button className="">Fazer Login</button>
-//       <button className="">Cadastrar</button>
-//     </div>
-//   ))
-// }
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+//   const cookies = nookies.get(ctx);
+//   const response = await api.get(`users/${cookies["motorsshop.idUser"]}`, {
+//     headers: {
+//       Authorization: `Bearer ${cookies[cookies["motorsshop.token"]]}`,
+//     },
+//   });
 
+//   const user: iUser = response.data;
+
+//   return {
+//     props: { user },
+//   };
+// };
 export default Header;
