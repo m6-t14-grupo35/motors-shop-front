@@ -7,6 +7,7 @@ import { FooterComponete } from "@/components/footer";
 import { MakeComment } from "@/components/makeComment";
 import { ModalAddAd } from "@/components/modals/addAd";
 import { DeleteAccountConfirmation } from "@/components/modals/deleteAccounteConfirmation";
+import { DeleteAdConfirmation } from "@/components/modals/deleteAdConfimation";
 import { ModalEditeAd } from "@/components/modals/editeAd";
 import { ModalEditeProfile } from "@/components/modals/editeProfile";
 import { MoreImages } from "@/components/moreImages";
@@ -19,7 +20,7 @@ export default function adPage () {
   const comentarios:IcommentProps[] = [{userName:"Ismael Silva", date:"2023-05-10T17:53:02.298399Z", text:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
   {userName:"juscelino kubitschek", date:"1960-05-10T17:53:02.298399Z", text:"amanhã eu vejo."},
   {userName:"luiz k.", date:new Date(), text:"ja foi batido?"},]
-  const adProvisorio: IadOptional = {id:'qualquerid', brand:"uma marca", model:"um modelo", year:2023, fuel:"gasolina", milage:5000, collor:"uma cor", priceFIPE:52000, selePrice:40000, description:"esse uma descrição bem curta" }
+  const adProvisorio: IadOptional = {id:"983493a7-99be-422e-8991-9c568754eda2", brand:"uma marca", model:"um modelo", year:2023, fuel:"gasolina", km:5000, color:"uma cor", priceFIPE:52000, price:40000, description:"esse uma descrição bem curta" }
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [seletorProvisorio, setSeletorProvisorio] = useState<IstateProvisorio>(null)
   const fecharProvisorio = () => {
@@ -39,12 +40,13 @@ export default function adPage () {
           <button className="h-14 w-14 bg-yellow-400 rounded-[50%] border-[4px] border-orange-400" onClick={() => setSeletorProvisorio('edite')}>modal Edite</button>
           <button className="h-14 w-14 bg-yellow-400 rounded-[50%] border-[4px] border-orange-400" onClick={() => setSeletorProvisorio('editeProfile')}>Edite profile</button>
           <button className="h-14 w-14 bg-yellow-400 rounded-[50%] border-[4px] border-orange-400" onClick={() => setSeletorProvisorio('deleteProfile')}>Delete profile</button>
+          <button className="h-14 w-14 bg-yellow-400 rounded-[50%] border-[4px] border-orange-400" onClick={() => setSeletorProvisorio('deleteAd')}>Delete anuncio</button>
         </div>
         {seletorProvisorio === "add" && <ModalAddAd closeFunction={() =>fecharProvisorio()}/>}
-        {seletorProvisorio === "edite" && <ModalEditeAd closeFunction={() =>fecharProvisorio()} ad={adProvisorio}/>}
+        {seletorProvisorio === "edite" && <ModalEditeAd closeFunction={() =>fecharProvisorio()} adId="826a4c17-071b-4d0b-b1c6-ddc55ad23db5"/>}
         {seletorProvisorio === "editeProfile" && <ModalEditeProfile openConfirmation={() => openConfirmation()} closeFunction={() =>fecharProvisorio()}/>}
         {seletorProvisorio === "deleteProfile" && <DeleteAccountConfirmation closeFunction={() =>fecharProvisorio()}/>}
-
+        {seletorProvisorio === "deleteAd" && <DeleteAdConfirmation closeFunction={() =>fecharProvisorio()} adId='string'/>}
         </>
       <div className="bg-brand-1 w-screen h-[596px] sm:h-[610px] md:h-[630px] lg:h-[656px]"></div>
 
@@ -69,7 +71,7 @@ export default function adPage () {
           <div className="flex flex-col items-center gap-[20px] lg:flex-row lg:justify-between lg:items-start w-[93.6%] max-w-[1238px]">
             <div className="flex flex-col items-center gap-[39px] lg:w-full max-w-[751px]">
               <CommentsSection comments={comentarios}/>
-              <MakeComment userName={user.userName}/>
+              <MakeComment adId="826a4c17-071b-4d0b-b1c6-ddc55ad23db5" userName={user.userName}/>
             </div>
             <div className=" w-[5px] ">
 

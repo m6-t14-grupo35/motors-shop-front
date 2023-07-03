@@ -2,7 +2,7 @@ import Input from '@/components/input';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IaddAd } from '@/interfaces/forms.interfaces';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React, { forwardRef, Ref } from "react";
 import { MdClose } from "react-icons/md"
 import { IadOptional, IaddImageInputProps, IediteAdProps } from '@/interfaces/componentProps.interface';
@@ -11,12 +11,21 @@ import { api } from '@/services/api';
 import nookies, { parseCookies } from "nookies"
 import { editeAdSchema } from '@/schemas/ad.schemas';
 import { toast } from 'react-toastify';
+import { filterEmptyData } from '@/utils/functions';
 
 // const maxYear = new Date().getFullYear() + 1
 
-export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
+export const ModalEditeAd = ({closeFunction, adId}: IediteAdProps) => {
   const token = parseCookies().motorsShopToken
-  const [imageCount, setImageCount] = useState(2);
+  const [imageCount, setImageCount] = useState(0);
+  const [adData, setAdData] = useState<null | IaddAd>(null)
+  const [coverImage, setCoverImage] = useState<string | null>(null)
+  const [isregistreddatas, setIsregistreddatas] = useState(true)
+
+  const {register, handleSubmit, formState: {errors}, setValue} = useForm<IaddAd>({
+    resolver: zodResolver(editeAdSchema),
+    shouldUnregister: false
+  });
 
   const addImageField = () => {
     if (imageCount < 5) {
@@ -24,46 +33,82 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
     }
   };
 
-  const editeFunction = async (data:IadOptional) => {
-    const { cover,image_1, image_2, image_3, image_4, image_5, ...otherData } = data
-    const adData = otherData
-    const imagesData = {cover:cover,image_1:image_1, image_2:image_2, image_3:image_3, image_4:image_4, image_5:image_5}
+  const sttAd = () => {
+    if (adId) {
+      api.get(`ads/${adId}`)
 
-    const responseAd = await api.patch("ads/", adData, {
-      headers:{
-        Authorization:`Bearer ${token}`
-      }
-    })
+      .then((response) => {
+        setAdData(response.data)
 
-    if(responseAd.status == 200){
-      toast.success("Anúncio cadastrado com sucesso")
-      console.log(responseAd);
-    }else{
-      toast.error("Houve um erro reveja os dados e tente novamente")
-      console.log(responseAd);
-    }
-
-    // const responseImages = await api.post(`images/${adId}`, imagesData, {
-    //   headers:{
-    //     Authorization:`Bearer ${token}`
-    //   }
-    // })
-    // if(responseImages.status == 200){
-    //   toast.success("Imagens cadastrado com sucesso")
-    //   console.log(responseImages);
-    // }else{
-    //   toast.error("Houve um erro ao cadastrar as imagens")
-    //   console.log(responseImages);
-    // }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
+  api.get(`images/${adId}`)
 
-  const {register, handleSubmit, formState: {errors}} = useForm<IaddAd>({
-    resolver: zodResolver(editeAdSchema),
-    shouldUnregister: false
-  });
-  // const onSubmit: SubmitHandler<IaddAd> = data => editeFunction(data);
-  const onSubmit: SubmitHandler<IaddAd> = data => {console.log(data)};
+  .then((response) => {
+    setCoverImage(response.data.cover)
+
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+}
+
+  useEffect(() => {
+    sttAd()
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  if (adData && isregistreddatas && coverImage) {
+    Object.keys(adData).forEach((key) => {
+      //@ts-ignore
+      setValue(key, adData[key]);
+    });
+
+    setValue('cover', coverImage)
+
+    setIsregistreddatas(false)
+  }
+
+    const editeFunction = async (data:IaddAd) => {
+      const { cover,image_1, image_2, image_3, image_4, image_5, ...otherData } = data
+      const adData = otherData
+      const imagesData = {cover:cover,image_1:image_1, image_2:image_2, image_3:image_3, image_4:image_4, image_5:image_5}
+
+      const responseAd = await api.patch(`ads/${adId}`, filterEmptyData(adData), {
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      })
+      if(responseAd.status == 200){
+        toast.success("Anúncio editado")
+        console.log(responseAd);
+      }else{
+        toast.error("Houve um erro reveja os dados e tente novamente")
+        console.log(responseAd);
+      }
+
+      const responseImages = await api.patch(`images/${adId}`, filterEmptyData(imagesData), {
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      })
+      if(responseImages.status == 200){
+        toast.success("Imagens atualizadas com sucesso")
+        console.log(responseImages);
+      }else{
+        toast.error("Houve um erro ao atualizar as imagens")
+        console.log(responseImages);
+      }
+
+  }
+
+  // const onSubmit: SubmitHandler<IadOptional> = (data) => {editeFunction(data)};
+  const onSubmit: SubmitHandler<IaddAd> = data => {editeFunction(data)};
 
 
   return(
@@ -83,9 +128,10 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
               type="text"
               label="Marca"
               placeholder='Mercedes Benz'
-              required={true}
+              required={false}
               error={errors.brand?.message}
-              value={ad.brand && ad.brand}
+              defaultValue={adData?.brand}
+              // value={ad.brand && ad.brand}
               {...register('brand')}
             />
 
@@ -94,9 +140,10 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
               type="text"
               label="Modelo"
               placeholder='A 200 CGI ADVANCE'
-              required={true}
+              required={false}
               error={errors.model?.message}
-              value={ad.model && ad.model}
+              defaultValue={adData?.model}
+              // value={ad.model && ad.model}
               {...register('model')}
             />
 
@@ -106,10 +153,11 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
                 type="number"
                 label="Ano"
                 placeholder='2018'
-                required={true}
+                required={false}
                 error={errors.year?.message}
+                defaultValue={adData?.year}
                 // @ts-ignore
-                value={ad.year && ad.year}
+                // value={ad.year && ad.year}
                 {...register('year')}
               />
 
@@ -122,11 +170,12 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
 
                 <select
                   id="fuel"
-                  required={true}
+                  required={false}
+                  defaultValue={adData?.fuel}
                   {...register('fuel')}
                   className='pl-[14px] block w-full rounded-md border-0 py-[8px] text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-[1.5px] outline-brand-2'
                 >
-
+                  <option value=''></option>
                   <option value={'Gasolina'}>Gasolina</option>
                   <option value={'Etanol'}>Etanol</option>
                   <option value={'Diesel'}>Diesel</option>
@@ -143,21 +192,20 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
                 type="number"
                 label="Quilometragem"
                 placeholder='30000'
-                required={true}
+                required={false}
                 error={errors.km?.message}
-                // @ts-ignore
-                value={ad.km && ad.km}
+                defaultValue={adData?.km}
                 {...register('km')}
               />
 
               <Input
-                id="collor"
+                id="color"
                 type="text"
                 label="Cor"
                 placeholder='Branco'
-                required={true}
+                required={false}
                 error={errors.color?.message}
-                value={ad.color && ad.color}
+                defaultValue={adData?.color}
                 {...register('color')}
               />
             </div>
@@ -168,10 +216,9 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
                   type="number"
                   label="Preço tabela FIPE"
                   placeholder='RS 48000'
-                  required={true}
+                  required={false}
                   error={errors.priceFIPE?.message}
-                  // @ts-ignore
-                  value={ad.priceFIPE && ad.priceFIPE}
+                  defaultValue={adData?.priceFIPE}
                   {...register('priceFIPE')}
               />
 
@@ -180,10 +227,9 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
                 type="number"
                 label="Preço"
                 placeholder='R$ 50000'
-                required={true}
+                required={false}
                 error={errors.price?.message}
-                // @ts-ignore
-                value={ad.price && ad.price}
+                defaultValue={adData?.price}
                 {...register('price')}
               />
             </div>
@@ -200,10 +246,10 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
               <textarea
                 id="description"
                 autoComplete='description'
-                required={true}
+                required={false}
                 className="resize-none px-[14px] block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-[1.5px] outline-brand-2"
                 {...register('description')}
-                value={ad.description && ad.description}
+                defaultValue={adData?.description}
               />
 
               {errors.description?.message && <p className="text-sm/5 text-red-700 absolute">errors.descripitions.message </p>}
@@ -216,6 +262,7 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
               placeholder='https://image.com'
               required={false}
               error={errors.cover?.message}
+              defaultValue={coverImage}
               {...register('cover')}
             />
 
@@ -236,7 +283,7 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
 
             <div className='flex flex-wrap gap-[10px] justify-between sw370:justify-end w-full mt-[30px]'>
               <Button_3 onClick={() => closeFunction()} type="button" text="Cancelar" height={2}/>
-              <Button_24 type="submit" text="Criar anúncio" height={2}/>
+              <Button_24 type="submit" text="Editar anúncio" height={2}/>
             </div>
           </form>
         </div>

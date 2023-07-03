@@ -23,6 +23,7 @@ export interface IcommentProps {
 export interface ImakeCommentProps {
   userImage?: string
   userName: string
+  adId:string
 }
 
 export interface IcommentSuggestionProps {
@@ -40,6 +41,7 @@ export interface InputProps {
   required?: boolean;
   error?: string;
   value?: string;
+  defaultValue?: any
 }
 
 export interface IaddImageInputProps {
@@ -70,11 +72,16 @@ export interface IadOptional {
 }
 
 export interface IediteAdProps {
-  ad: IadOptional
+  adId: string
   closeFunction: () => void
 }
 
-export type IstateProvisorio = null | "add" | "edite" | "editeProfile" | "deleteProfile"
+export interface IediteProps {
+  id: string
+  closeFunction: () => void
+}
+
+export type IstateProvisorio = null | "add" | "edite" | "editeProfile" | "deleteProfile" | "deleteAd"
 
 export interface IconfirmationDeleteAccount {
   closeFunction: () => void

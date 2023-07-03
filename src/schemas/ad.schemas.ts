@@ -21,20 +21,21 @@ export const addAdSchema = z.object({
 })
 
 export const editeAdSchema = z.object({
-  brand: z.string().nonempty('insira a marca').optional(),
-  model: z.string().nonempty('insira o modelo').optional(),
-  // year: z.coerce.number().min(1800, 'ano invalido').max(maxYear, 'ano invalido').optional(),
-  year: z.string().optional(),
+  brand: z.string().optional(),
+  model: z.string().optional(),
+  year: z.coerce.number().min(1800, 'ano invalido').max(maxYear, 'ano invalido').optional(),
   fuel: z.string().min(0,'insira um valor positivo').optional(),
-  km: z.coerce.number().min(0,'insira um valor positivo').optional(),
-  collor: z.string().nonempty('insira a marca').optional(),
+  km: z.coerce.number().optional(),
+  collor: z.string().optional(),
   priceFIPE: z.coerce.number().min(0,'insira um valor positivo').optional(),
   price: z.coerce.number().min(0,'insira um valor positivo').optional(),
-  description: z.string().nonempty('insira uma descrição').optional(),
-  cover:z.string().url('url invalida').nonempty('imagem obrigatoria').optional(),
+  description: z.string().optional(),
+  cover:z.string().optional(),
   image_6:z.string().url('url invalida').optional(),
   image_2:z.string().url('url invalida').optional(),
   image_3:z.string().url('url invalida').optional(),
   image_4:z.string().url('url invalida').optional(),
   image_5:z.string().url('url invalida').optional()
 })
+
+

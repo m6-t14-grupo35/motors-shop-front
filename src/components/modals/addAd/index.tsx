@@ -12,10 +12,8 @@ import { parseCookies } from 'nookies';
 import { addAdSchema } from '@/schemas/ad.schemas';
 import { toast } from "react-toastify";
 
-// const maxYear = new Date().getFullYear() + 1
-
 export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
-  const [imageCount, setImageCount] = useState(2);
+  const [imageCount, setImageCount] = useState(0);
   const token = parseCookies().motorsShopToken
 
   const addImageField = () => {
@@ -36,8 +34,6 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
     })
 
     if(responseAd.status == 201){
-      toast.success("Anúncio cadastrado com sucesso")
-      console.log(imagesData)
 
       const responseImages = await api.post(`images/${responseAd.data.id}`, imagesData, {
         headers:{
@@ -45,11 +41,9 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
         }
       })
       if(responseImages.status == 201){
-        toast.success("Imagens cadastrado com sucesso")
-        console.log(responseImages);
+        toast.success("anuncio cadastrado com sucesso")
       }else{
         toast.error("Houve um erro ao cadastrar as imagens")
-        console.log(responseImages);
       }
 
     }else{

@@ -70,29 +70,29 @@ const Header = (isLoggedIn: boolean, user: IUser) => {
               className="
             md:hidden
             flex
-            w-8 
-            h-1 
-            bg-black 
-            rounded 
-            transition-all 
-            duration-150 
-            before:content-[''] 
-            before:transition-all 
-            before:duration-150 
-            before:absolute 
-            before:w-8 
+            w-8
+            h-1
+            bg-black
+            rounded
+            transition-all
+            duration-150
+            before:content-['']
+            before:transition-all
+            before:duration-150
+            before:absolute
+            before:w-8
             before:h-1
-            before:bg-black 
-            before:rounded 
+            before:bg-black
+            before:rounded
             before:-translate-y-2
-            after:content-[''] 
-            after:absolute 
-            after:w-8 
-            after:h-1 
-            after:bg-black 
-            after:rounded 
+            after:content-['']
+            after:absolute
+            after:w-8
+            after:h-1
+            after:bg-black
+            after:rounded
             after:translate-y-2
-            after:transition-all 
+            after:transition-all
             after:duration-150"
             ></div>
           </div>
