@@ -22,3 +22,16 @@ export interface iAd {
   user_id: string;
   created_at: string;
 }
+
+export interface iUser { 
+  id: string,
+  created_at: string,
+  name: string,
+  email: string,
+  phone_number: string,
+  reset_token: null,
+  birthdate: string,
+  description: string,
+  is_seller: boolean,
+  cpf: string
+}
