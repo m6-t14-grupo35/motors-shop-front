@@ -1,7 +1,7 @@
 import { AuthContext } from '@/contexts/authContext';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useRef } from 'react';
-import {GrClose} from 'react-icons/gr'
+import {GrClose} from 'react-icons/gr';
 
 interface IPropsModalRegister {
   toogleModal: () => void

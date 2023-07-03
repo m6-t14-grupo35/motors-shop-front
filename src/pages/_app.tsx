@@ -4,6 +4,8 @@ import type { AppProps } from 'next/app'
 import { ToastContainer } from 'react-toastify'
 import { AuthProvider } from '@/contexts/authContext'
 import 'react-toastify/dist/ReactToastify.css'
+import { UserProvider } from '@/contexts/userContext'
+import { AdProvider } from '@/contexts/adContext'
 
 export default function App({ Component, pageProps }: AppProps) {
   return(
@@ -21,7 +23,11 @@ export default function App({ Component, pageProps }: AppProps) {
         theme="light"
       />
       <AuthProvider>
-        <Component {...pageProps} />
+        <UserProvider>
+          <AdProvider>
+            <Component {...pageProps} />
+          </AdProvider>
+        </UserProvider>
       </AuthProvider>
     </>
   )
