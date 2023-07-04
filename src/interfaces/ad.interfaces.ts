@@ -1,4 +1,5 @@
-export interface IaddAd {
+export interface Iad{
+  id:string
   brand: string
   model: string
   year: number
@@ -7,6 +8,7 @@ export interface IaddAd {
   color: string
   priceFIPE: number
   price: number
+  is_sold:boolean
   description: string
   cover: string
   image_1?: string
@@ -15,3 +17,4 @@ export interface IaddAd {
   image_4?: string
   image_5?: string
 }
+

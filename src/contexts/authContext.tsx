@@ -56,8 +56,9 @@ export const AuthProvider = ({children}: IProps) => {
 
   const login = async (data: tUserLoginData) => {
     api.post('auth/', data)
-    .then((response) => {  
-      setCookie(null, 'motorsshop.token', response.data.token, {
+
+    .then((response) => {
+      setCookie(null, 'motorsShopToken', response.data.token, {
         path: "/"
       })
       me(response.data.token)
@@ -95,7 +96,6 @@ export const AuthProvider = ({children}: IProps) => {
       toast.error('Erro ao atualizar a senha, tente novamente')
     })
   }
-  
   return (
     <AuthContext.Provider value={{register, login, isOpenModal, toogleModalRegister, sendEmail, resetPassword, me}}>
       {children}

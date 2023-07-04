@@ -23,6 +23,7 @@ export interface IcommentProps {
 export interface ImakeCommentProps {
   userImage?: string
   userName: string
+  adId:string
 }
 
 export interface IcommentSuggestionProps {
@@ -40,6 +41,7 @@ export interface InputProps {
   required?: boolean;
   error?: string;
   value?: string;
+  defaultValue?: any
 }
 
 export interface IaddImageInputProps {
@@ -56,16 +58,33 @@ export interface IadOptional {
   model?: string
   year?: number
   fuel?: Ifuels
-  milage?: number
-  collor?: string
+  km?: number
+  color?: string
   priceFIPE?: number
-  selePrice?: number
+  price?: number
   description?: string
+  cover?: string
+  image_1?: string
+  image_2?: string
+  image_3?: string
+  image_4?: string
+  image_5?: string
 }
 
 export interface IediteAdProps {
-  ad: IadOptional
+  adId: string
   closeFunction: () => void
 }
 
-export type IstateProvisorio = null | "add" | "edite"
+export interface IediteProps {
+  id: string
+  closeFunction: () => void
+}
+
+export type IstateProvisorio = null | "add" | "edite" | "editeProfile" | "deleteProfile" | "deleteAd"
+
+export interface IconfirmationDeleteAccount {
+  closeFunction: () => void
+  openConfirmation: () => void
+}
+

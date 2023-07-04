@@ -98,7 +98,7 @@ export const FormRegister = () => {
               <input className='input input-placeholder' placeholder='Digitar rua' type='text' {...register('street')}/>
               {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.street?.message}</p>}
             </fieldset>
-            
+
             <div className='flex gap-3'>
               <fieldset className='flex flex-col mb-5'>
                 <label className='input-label mb-2'>Número</label>
@@ -118,7 +118,7 @@ export const FormRegister = () => {
 
               <div className="flex gap-3">
                 <button type='button' className={`button-big-text border rounded w-1/2 h-10 ${isSellerSelected ? 'border-grey-4' : 'text-grey-whiteFixed bg-brand-1'}`} onClick={() => handleBuyerClick()}>Comprador</button>
-                
+
                 <button type='button' className={`button-big-text border border-grey-4 rounded w-1/2 h-10 ${isSellerSelected ? 'text-grey-whiteFixed bg-brand-1' : 'border-grey-4'}`} onClick={() => handleSellerClick()}>Anunciante</button>
               </div>
 

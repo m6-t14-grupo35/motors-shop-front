@@ -1,38 +1,31 @@
 import Input from '@/components/input';
-import * as z from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IaddAd } from '@/interfaces/forms.interfaces';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React, { forwardRef, Ref } from "react";
 import { MdClose } from "react-icons/md"
-import { IaddImageInputProps, IediteAdProps } from '@/interfaces/componentProps.interface';
+import { IadOptional, IaddImageInputProps, IediteAdProps } from '@/interfaces/componentProps.interface';
 import { Button_24, Button_3, Button_7 } from '@/components/buttons';
 import { api } from '@/services/api';
+import nookies, { parseCookies } from "nookies"
+import { editeAdSchema } from '@/schemas/ad.schemas';
+import { toast } from 'react-toastify';
+import { filterEmptyData } from '@/utils/functions';
 
-const maxYear = new Date().getFullYear() + 1
+// const maxYear = new Date().getFullYear() + 1
 
-const schema = z.object({
-  brand: z.string().nonempty('insira a marca').optional(),
-  model: z.string().nonempty('insira o modelo').optional(),
-  year: z.coerce.number().min(1800, 'ano invalido').max(maxYear, 'ano invalido').optional(),
-  fuel: z.string().min(0,'insira um valor positivo').optional(),
-  milage: z.coerce.number().min(0,'insira um valor positivo').optional(),
-  collor: z.string().nonempty('insira a marca').optional(),
-  priceFIPE: z.coerce.number().min(0,'insira um valor positivo').optional(),
-  selePrice: z.coerce.number().min(0,'insira um valor positivo').optional(),
-  description: z.string().nonempty('insira uma descrição').optional(),
-  image_1:z.string().url('url invalida').nonempty('imagem obrigatoria').optional(),
-  image_2:z.string().optional(),
-  image_3:z.string().optional(),
-  image_4:z.string().url('url invalida').optional(),
-  image_5:z.string().url('url invalida').optional(),
-  image_6:z.string().url('url invalida').optional()
-})
+export const ModalEditeAd = ({closeFunction, adId}: IediteAdProps) => {
+  const token = parseCookies().motorsShopToken
+  const [imageCount, setImageCount] = useState(0);
+  const [adData, setAdData] = useState<null | IaddAd>(null)
+  const [coverImage, setCoverImage] = useState<string | null>(null)
+  const [isregistreddatas, setIsregistreddatas] = useState(true)
 
-export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
-  // const token = localStorage.getItem('@MS-token')
-  const [imageCount, setImageCount] = useState(2);
+  const {register, handleSubmit, formState: {errors}, setValue} = useForm<IaddAd>({
+    resolver: zodResolver(editeAdSchema),
+    shouldUnregister: false
+  });
 
   const addImageField = () => {
     if (imageCount < 5) {
@@ -40,23 +33,82 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
     }
   };
 
-  // const registerFunction = async (data:IaddAd) => {
-  //   const response = await api.patch(`ads/${ad.id}`, data, {
-  //     headers:{
-  //       Authorization:`Bearer ${token}`
-  //     }
-  //   })
-  //   if(response.status == 200){
+  const sttAd = () => {
+    if (adId) {
+      api.get(`ads/${adId}`)
 
-  //   }
-  // }
+      .then((response) => {
+        setAdData(response.data)
 
-  const {register, handleSubmit, formState: {errors}} = useForm<IaddAd>({
-    resolver: zodResolver(schema),
-    shouldUnregister: false
-  });
-  // const onSubmit: SubmitHandler<IaddAd> = data => registerFunction(data);
-  const onSubmit: SubmitHandler<IaddAd> = data => {console.log(data)};
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  api.get(`images/${adId}`)
+
+  .then((response) => {
+    setCoverImage(response.data.cover)
+
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+}
+
+  useEffect(() => {
+    sttAd()
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  if (adData && isregistreddatas && coverImage) {
+    Object.keys(adData).forEach((key) => {
+      //@ts-ignore
+      setValue(key, adData[key]);
+    });
+
+    setValue('cover', coverImage)
+
+    setIsregistreddatas(false)
+  }
+
+    const editeFunction = async (data:IaddAd) => {
+      const { cover,image_1, image_2, image_3, image_4, image_5, ...otherData } = data
+      const adData = otherData
+      const imagesData = {cover:cover,image_1:image_1, image_2:image_2, image_3:image_3, image_4:image_4, image_5:image_5}
+
+      const responseAd = await api.patch(`ads/${adId}`, filterEmptyData(adData), {
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      })
+      if(responseAd.status == 200){
+        toast.success("Anúncio editado")
+        console.log(responseAd);
+      }else{
+        toast.error("Houve um erro reveja os dados e tente novamente")
+        console.log(responseAd);
+      }
+
+      const responseImages = await api.patch(`images/${adId}`, filterEmptyData(imagesData), {
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      })
+      if(responseImages.status == 200){
+        toast.success("Imagens atualizadas com sucesso")
+        console.log(responseImages);
+      }else{
+        toast.error("Houve um erro ao atualizar as imagens")
+        console.log(responseImages);
+      }
+
+  }
+
+  // const onSubmit: SubmitHandler<IadOptional> = (data) => {editeFunction(data)};
+  const onSubmit: SubmitHandler<IaddAd> = data => {editeFunction(data)};
 
 
   return(
@@ -76,9 +128,10 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
               type="text"
               label="Marca"
               placeholder='Mercedes Benz'
-              required={true}
+              required={false}
               error={errors.brand?.message}
-              value={ad.brand && ad.brand}
+              defaultValue={adData?.brand}
+              // value={ad.brand && ad.brand}
               {...register('brand')}
             />
 
@@ -87,9 +140,10 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
               type="text"
               label="Modelo"
               placeholder='A 200 CGI ADVANCE'
-              required={true}
+              required={false}
               error={errors.model?.message}
-              value={ad.model && ad.model}
+              defaultValue={adData?.model}
+              // value={ad.model && ad.model}
               {...register('model')}
             />
 
@@ -99,56 +153,60 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
                 type="number"
                 label="Ano"
                 placeholder='2018'
-                required={true}
+                required={false}
                 error={errors.year?.message}
+                defaultValue={adData?.year}
                 // @ts-ignore
-                value={ad.year && ad.year}
+                // value={ad.year && ad.year}
                 {...register('year')}
               />
 
               <div className='w-full'>
-              <label
-                className="whitespace-nowrap block text-sm font-medium leading-6 text-gray-900"
-              >
-                Combustivel
-              </label>
+                <label
+                  className="whitespace-nowrap block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Combustivel
+                </label>
 
                 <select
                   id="fuel"
-                  required={true}
+                  required={false}
+                  defaultValue={adData?.fuel}
                   {...register('fuel')}
                   className='pl-[14px] block w-full rounded-md border-0 py-[8px] text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-[1.5px] outline-brand-2'
                 >
-                  <option value={1}>Gasolina</option>
-                  <option value={2}>Álcool</option>
-                  <option value={3}>Outros</option>
+                  <option value=''></option>
+                  <option value={'Gasolina'}>Gasolina</option>
+                  <option value={'Etanol'}>Etanol</option>
+                  <option value={'Diesel'}>Diesel</option>
+                  <option value={'GLP'}>Outros</option>
+                  <option value={'hibrido'}>hibrido</option>
+                  <option value={'Eletric'}>Elétrico</option>
                 </select>
               </div>
-
             </div>
 
             <div className='flex gap-[21px] w-full'>
               <Input
-                id="milage"
+                id="km"
                 type="number"
                 label="Quilometragem"
-                placeholder='30.000'
-                required={true}
-                error={errors.milage?.message}
-                // @ts-ignore
-                value={ad.milage && ad.milage}
-                {...register('milage')}
+                placeholder='30000'
+                required={false}
+                error={errors.km?.message}
+                defaultValue={adData?.km}
+                {...register('km')}
               />
 
               <Input
-                id="collor"
+                id="color"
                 type="text"
                 label="Cor"
                 placeholder='Branco'
-                required={true}
-                error={errors.collor?.message}
-                value={ad.collor && ad.collor}
-                {...register('collor')}
+                required={false}
+                error={errors.color?.message}
+                defaultValue={adData?.color}
+                {...register('color')}
               />
             </div>
 
@@ -157,11 +215,10 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
                   id="priceFIPE"
                   type="number"
                   label="Preço tabela FIPE"
-                  placeholder='RS 48.000,00'
-                  required={true}
+                  placeholder='RS 48000'
+                  required={false}
                   error={errors.priceFIPE?.message}
-                  // @ts-ignore
-                  value={ad.priceFIPE && ad.priceFIPE}
+                  defaultValue={adData?.priceFIPE}
                   {...register('priceFIPE')}
               />
 
@@ -169,12 +226,11 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
                 id="selePrice"
                 type="number"
                 label="Preço"
-                placeholder='R$ 50.000,00'
-                required={true}
-                error={errors.selePrice?.message}
-                // @ts-ignore
-                value={ad.selePrice && ad.selePrice}
-                {...register('selePrice')}
+                placeholder='R$ 50000'
+                required={false}
+                error={errors.price?.message}
+                defaultValue={adData?.price}
+                {...register('price')}
               />
             </div>
 
@@ -190,10 +246,10 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
               <textarea
                 id="description"
                 autoComplete='description'
-                required={true}
+                required={false}
                 className="resize-none px-[14px] block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-[1.5px] outline-brand-2"
                 {...register('description')}
-                value={ad.description && ad.description}
+                defaultValue={adData?.description}
               />
 
               {errors.description?.message && <p className="text-sm/5 text-red-700 absolute">errors.descripitions.message </p>}
@@ -204,17 +260,18 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
               type="text"
               label="Imagem de capa"
               placeholder='https://image.com'
-              required={true}
-              error={errors.image_1?.message}
-              {...register('image_1')}
+              required={false}
+              error={errors.cover?.message}
+              defaultValue={coverImage}
+              {...register('cover')}
             />
 
             {Array.from({ length: imageCount }, (_, index) => (
               <Input
-                key={`image_${index + 2}`}
-                id={`image_${index + 2}`}
+                key={`image_${index + 1}`}
+                id={`image_${index + 1}`}
                 type="text"
-                label={`${index + 2}° Imagem da galeria`}
+                label={`${index + 1}° Imagem da galeria`}
                 placeholder="https://image.com"
                 required={false}
                 // @ts-ignore
@@ -225,8 +282,8 @@ export const ModalEditeAd = ({closeFunction, ad}: IediteAdProps) => {
             <Button_7 type="button" text="Adicionar campo para imagem da galeria" onClick={addImageField}/>
 
             <div className='flex flex-wrap gap-[10px] justify-between sw370:justify-end w-full mt-[30px]'>
-              <Button_3 type="button" text="Cancelar" height={2}/>
-              <Button_24 type="submit" text="Criar anúncio" height={2}/>
+              <Button_3 onClick={() => closeFunction()} type="button" text="Cancelar" height={2}/>
+              <Button_24 type="submit" text="Editar anúncio" height={2}/>
             </div>
           </form>
         </div>
