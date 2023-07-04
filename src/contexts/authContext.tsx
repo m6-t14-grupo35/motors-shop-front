@@ -36,7 +36,7 @@ export const AuthProvider = ({children}: IProps) => {
       }
     })
     .then((response) => {
-      setCookie(null, 'motorsshop.idUser', response.data[0].id)
+      setCookie(null, 'motorsShopIdUser', response.data[0].id)
     })
     .catch((error) => {
       console.log(error)
