@@ -1,23 +1,24 @@
-import { AuthContext } from "@/contexts/authContext";
 import { UserContext } from "@/contexts/userContext";
 import { addressUpdateSchema, tUpdateAddressData, tUserRegisterData } from "@/schemas/user.schemas";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Cookies from "js-cookie";
-import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
 import { useContext, useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form";
 import {GrClose} from 'react-icons/gr';
+import { toast } from "react-toastify";
 
 export const ModalEditAddress = () => {
   const [user, setUser] = useState<null | tUserRegisterData>(null)
-  const {register, handleSubmit, formState:{errors}} = useForm<tUpdateAddressData>({
+  const token = parseCookies().motorsShopToken
+  
+  const {register, handleSubmit, setValue, formState:{errors}} = useForm<tUpdateAddressData>({
     mode: 'onBlur',
     resolver: zodResolver(addressUpdateSchema)
   })
 
+  
   const sttUser = () => {
-    const token = Cookies.get('motorsshop.token')
     if (token) {
       api.get('users/', {
         headers: {
@@ -29,14 +30,18 @@ export const ModalEditAddress = () => {
       })
       .catch((error) => {
         console.log(error)
+        if(error.response.status == 401){
+          toast.error('Sua seção expirou')
+        }
       })
     }
   }
 
   
-  const {isOpenModalAddress, toogleModalAddress} = useContext(UserContext)
-  const router = useRouter()
+  const {isOpenModalAddress, toogleModalAddress, updateAddress} = useContext(UserContext)
   const ref = useRef<HTMLDivElement>(null)
+  const [isregistreddatas, setIsregistreddatas] = useState(true)
+
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -52,19 +57,26 @@ export const ModalEditAddress = () => {
     if (isOpenModalAddress) {
       sttUser()
       window.addEventListener("mousedown", handleClick);
-  
+      
       return () => {
         window.removeEventListener("mousedown", handleClick);
       }
     }
   }, [isOpenModalAddress]);
-
-  const submit = (data: tUpdateAddressData) => {
-    console.log(data)
+  
+  if (user && isregistreddatas) {
+    Object.keys(user).forEach((key) => {
+      //@ts-ignore
+      setValue(key, user[key])
+      
+    })
+    setIsregistreddatas(false)
   }
 
-  console.log('aqui é user', user)
-
+  const submit = (data: tUpdateAddressData) => {
+    updateAddress(data, token)
+  }
+  
   return (
     <div className={`bg-grey-4 bg-opacity-50 ${isOpenModalAddress ? 'flex' : 'hidden'} justify-center items-start fixed z-50 h-screen w-screen top-0 right-0`}>
       <div className='min-w-[16rem] max-w-[33rem] w-4/5 bg-grey-whiteFixed rounded-lg mt-20 overflow-auto scroll-smooth max-h-[80%]' ref={ref}>
