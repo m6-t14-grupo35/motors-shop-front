@@ -1,14 +1,14 @@
-export interface Iad{
-  id:string
+export interface Iad {
+  id: string
   brand: string
   model: string
-  year: number
+  year: string
   fuel: string
   km: number
   color: string
   priceFIPE: number
   price: number
-  is_sold:boolean
+  is_sold: boolean
   description: string
   cover: string
   image_1?: string

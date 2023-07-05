@@ -72,6 +72,12 @@ export const FormRegister = () => {
               {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.description?.message}</p>}
             </fieldset>
 
+            <fieldset className='flex flex-col mb-5'>
+              <label className='input-label mb-2'>Imagem do perfil</label>
+              <input className='input input-placeholder' placeholder='Digitar URL da imagem' type='text' {...register('image')}/>
+              {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.birthdate?.message}</p>}
+            </fieldset>
+
             <h3 className='body-2-500 mb-5'>Informações de endereço</h3>
             <fieldset className='flex flex-col mb-5'>
               <label className='input-label mb-2'>CEP</label>

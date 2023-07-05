@@ -12,6 +12,7 @@ export const userRegisterSchema = z.object({
   phone_number: z.string().nonempty('Celular é obrigatório').max(30, 'Celular deve ter, no máximo, 30 caracteres'),
   birthdate: z.string().nonempty('Data de nascimento é obrigatória'),
   description: z.string().nonempty('Descrição é obrigatória'),
+  image: z.string().optional(),
   zip_code: z.string().nonempty('CEP é obrigatório').length(8, 'CEP deve ter 8 caracteres'),
   state: z.string().nonempty('Estado é obrigatório').max(30, 'Estado deve ter, no máximo, 30 caracteres'),
   city: z.string().nonempty('Cidade é obrigatória').max(30, 'Cidade deve ter, no máximo, 30 caracteres'),

@@ -11,7 +11,7 @@ export interface iAd {
   id: string;
   brand: string;
   model: string;
-  year: number;
+  year: string;
   fuel: TypeFuels;
   km: number;
   color: string;
@@ -23,7 +23,7 @@ export interface iAd {
   created_at: string;
 }
 
-export interface iUser { 
+export interface iUser {
   id: string,
   created_at: string,
   name: string,
