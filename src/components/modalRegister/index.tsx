@@ -30,7 +30,7 @@ export const ModalRegister = ({toogleModal}: IPropsModalRegister) => {
         window.removeEventListener("mousedown", handleClick);
       }
     }
-  }, [isOpenModal]);
+  }, [isOpenModal, toogleModal]);
   
   const redirect = () => {
     toogleModal()

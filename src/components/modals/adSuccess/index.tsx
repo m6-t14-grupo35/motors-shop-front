@@ -24,7 +24,7 @@ export const ModalAdSuccess = () => {
         window.removeEventListener("mousedown", handleClick);
       }
     }
-  }, [isOpenModalAdSuccess]);
+  }, [isOpenModalAdSuccess, toogleModalAdSuccess]);
 
   return (
     <div className={`bg-grey-4 bg-opacity-50 ${isOpenModalAdSuccess ? 'flex' : 'hidden'} justify-center items-start fixed z-50 h-screen w-screen top-0 right-0`}>
