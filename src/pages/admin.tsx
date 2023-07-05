@@ -36,7 +36,7 @@ export default function Admin() {
               </div>
               <p className="body-1-400">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
+                industry. Lorem Ipsum has been the industrys standard dummy
                 text ever since the 1500s
               </p>
               <button onClick={() => setModal("add")} className="flex items-center justify-center w-[160px] h-[48px] py-[12px] px-[28px] border-brand-1 border-2 rounded text-brand-1 bg-white">Criar Anúncio</button>

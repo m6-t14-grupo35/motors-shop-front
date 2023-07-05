@@ -62,7 +62,7 @@ export const ModalEditAddress = () => {
         window.removeEventListener("mousedown", handleClick);
       }
     }
-  }, [isOpenModalAddress]);
+  }, [isOpenModalAddress, sttUser, toogleModalAddress]);
   
   if (user && isregistreddatas) {
     Object.keys(user).forEach((key) => {
