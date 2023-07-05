@@ -5,6 +5,7 @@ import { AdPhoto } from "@/components/adPhoto";
 import { CommentsSection } from "@/components/commentsSection";
 import { FooterComponete } from "@/components/footer";
 import { MakeComment } from "@/components/makeComment";
+import { ModalAdSuccess } from "@/components/modals/adSuccess";
 import { ModalAddAd } from "@/components/modals/addAd";
 import { DeleteAccountConfirmation } from "@/components/modals/deleteAccounteConfirmation";
 import { DeleteAdConfirmation } from "@/components/modals/deleteAdConfimation";
@@ -13,7 +14,7 @@ import { ModalEditeProfile } from "@/components/modals/editeProfile";
 import { MoreImages } from "@/components/moreImages";
 import { SellerInfos } from "@/components/sellerInfos";
 import { IadOptional, IcommentProps, IstateProvisorio } from "@/interfaces/componentProps.interface";
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 export default function adPage () {
   const user = {userName: "Chapolin Colorado", userImage:undefined}
@@ -81,6 +82,7 @@ export default function adPage () {
         </div>
         <FooterComponete/>
       </div>
+      <ModalAdSuccess/>
     </div>
   )
 }

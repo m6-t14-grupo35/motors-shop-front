@@ -2,7 +2,7 @@ import Input from '@/components/input';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IaddAd } from '@/interfaces/forms.interfaces';
-import { useState } from "react";
+import { useContext, useState } from "react";
 import React, { forwardRef, Ref } from "react";
 import { MdClose } from "react-icons/md"
 import { IaddImageInputProps } from '@/interfaces/componentProps.interface';
@@ -11,10 +11,12 @@ import { api } from '@/services/api';
 import { parseCookies } from 'nookies';
 import { addAdSchema } from '@/schemas/ad.schemas';
 import { toast } from "react-toastify";
+import { AdContext } from '@/contexts/adContext';
 
 export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
   const [imageCount, setImageCount] = useState(0);
   const token = parseCookies().motorsShopToken
+  const {toogleModalAdSuccess} = useContext(AdContext)
 
   const addImageField = () => {
     if (imageCount < 5) {
@@ -41,7 +43,8 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
         }
       })
       if(responseImages.status == 201){
-        toast.success("anuncio cadastrado com sucesso")
+        reset()
+        toogleModalAdSuccess()
       }else{
         toast.error("Houve um erro ao cadastrar as imagens")
       }
@@ -52,7 +55,7 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
 
   }
 
-  const {register, handleSubmit, formState: {errors}} = useForm<IaddAd>({
+  const {register, handleSubmit, reset, formState: {errors}} = useForm<IaddAd>({
     resolver: zodResolver(addAdSchema),
     shouldUnregister: false
   });

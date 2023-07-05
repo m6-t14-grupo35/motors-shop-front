@@ -42,15 +42,22 @@ interface IProps {
 interface IAdProviderData {
 	adList: iAd[]
 	setAdList: Dispatch<SetStateAction<iAd[]>>
+	toogleModalAdSuccess: () => void
+	isOpenModalAdSuccess: boolean
 }
 
 export const AdContext = createContext({} as IAdProviderData)
 
 export const AdProvider = ({children}: IProps) => {
 	const [adList, setAdList] = useState<iAd[]>([])
+	const [isOpenModalAdSuccess, setIsOpenModalAdSuccess] = useState(false)
+
+	const toogleModalAdSuccess = () => {
+    setIsOpenModalAdSuccess(!isOpenModalAdSuccess)
+  }
 
 	return(
-		<AdContext.Provider value={{adList, setAdList}} >
+		<AdContext.Provider value={{adList, setAdList, toogleModalAdSuccess, isOpenModalAdSuccess}} >
 			{children}
 		</AdContext.Provider>
 	)
