@@ -1,0 +1,83 @@
+@import "tailwindcss/base.css";
+@import "tailwindcss/components.css";
+@import "tailwindcss/utilities.css";
+
+.heading-1-700 {
+  @apply text-[2.75rem] font-bold leading-[3.5rem];
+}
+
+.heading-2-600 {
+  @apply text-[2.25rem] font-semibold leading-[2.81rem];
+}
+
+.heading-3-600 {
+  @apply text-[2rem] font-semibold leading-[2.5rem];
+}
+
+.heading-3-500 {
+  @apply text-[2rem] font-medium leading-[2.5rem];
+}
+
+.heading-4-600 {
+  @apply text-[1.75rem] font-semibold leading-[2.18rem];
+}
+
+.heading-4-500 {
+  @apply text-[1.75rem] font-medium leading-[2.18rem];
+}
+
+.heading-5-600 {
+  @apply text-[1.5rem] font-semibold leading-[1.875rem];
+}
+
+.heading-5-500 {
+  @apply text-[1.5rem] font-medium leading-[1.875rem];
+}
+
+.heading-6-600 {
+  @apply text-[1.25rem] font-semibold leading-[1.56rem];
+}
+
+.heading-6-500 {
+  @apply text-[1.25rem] font-medium leading-[1.56rem];
+}
+
+.heading-7-600 {
+  @apply text-[1rem] font-bold leading-[1.25rem];
+}
+
+.heading-7-500 {
+  @apply text-[1rem] font-bold leading-[1.25rem];
+}
+
+.body-1-600 {
+  @apply text-[1rem] font-semibold leading-[1.75rem];
+}
+
+.body-1-400 {
+  @apply text-[1rem] font-normal leading-[1.75rem];
+}
+
+.body-2-400 {
+  @apply text-[0.875rem] font-normal leading-[1.5rem];
+}
+
+.body-2-500 {
+  @apply text-[0.875rem] font-medium leading-[1.5rem];
+}
+
+.button-big-text {
+  @apply text-[1rem] font-semibold;
+}
+
+.button-medium-text {
+  @apply text-[0.875rem] font-semibold;
+}
+
+.input-placeholder {
+  @apply text-[1rem] font-normal;
+}
+
+.input-label {
+  @apply text-[0.875rem] font-medium leading-[1.058rem];
+}
