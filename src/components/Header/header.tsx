@@ -7,16 +7,14 @@ import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import { api } from "@/services/api";
 import { iUser } from "@/interfaces/cards.interfaces";
+import { ModalRegister } from "../modalRegister";
 import Cookies from "js-cookie";
-
 
 const Header = () => {
   const [toggle, setToggle] = useState(true);
   const [user, setUser] = useState<iUser | null>(null);
-  const [tokenCookies, setTokenCookies] = useState("")
-  const [userCookies, setUserCookies] = useState("")
-  const token = Cookies.get('motorsshop.token')
-  const userId = Cookies.get("motorsshop.idUser")
+  const token = Cookies.get('motorsShopToken')
+  const userId = Cookies.get("motorsShopIdUser")
   const getUser = useCallback(async () => {
       const response = await api
         .get(`users/${userId}`, {
@@ -26,6 +24,14 @@ const Header = () => {
         })
         setUser(response.data)
     }, [token, userId])
+
+  const [openDropdown, setOpenDropdown] = useState<boolean>(false)
+  const toggleDropdown = () => {
+    setOpenDropdown(!openDropdown)
+  }
+  const closeDropdown = () => {
+    setOpenDropdown(false)
+  }
 
   useEffect(() => {
     getUser().catch(console.error)
@@ -126,11 +132,22 @@ const Header = () => {
             className="hidden flex-col md:flex md:flex-row md:border-l-2 md:grey-6 md:items-center space-x-0 md:space-x-11 space-y-11 md:space-y-0 md:pl-11"
           >
             {user !== null ? (
-              <div className="flex justify-center items-center w-[139px] h-[32px] gap-[8px]">
+              <div onClick={toggleDropdown} className="flex justify-center items-center w-[139px] h-[32px] gap-[8px] relative">
                 <div className="h-8 w-8 rounded-full bg-purple-950 gray-0 text-white flex items-center justify-center text-center">
                   {user?.name.charAt(0)}
                 </div>
                 <p>{user?.name}</p>
+                {openDropdown && (
+                  <div id="myDropdown" className="absolute flex flex-col top-full bg-white rounded shadow-sm min-w-[200px] h-[202px] gap-[16px] mt-[21px] pl-[22px]">
+                    <Link href={"/"} ><button className="body-1-400">Editar Perfil</button></Link>
+                    <Link href={"/"} ><button className="body-1-400">Editar Endereço</button></Link>
+                    <Link href={"/admin"} ><button className="body-1-400"></button>Meus Anúncios</Link>
+                    <Link href={"/"}><button  onClick={() => {
+                      Cookies.remove("motorsShopToken")
+                      Cookies.remove("motorsShopIdUser")
+                    }} className="body-1-400">Sair</button></Link>
+                  </div>
+                )}
               </div>
             ) : (
               <>
@@ -153,18 +170,4 @@ const Header = () => {
   );
 };
 
-// export const getServerSideProps: GetServerSideProps = async (ctx) => {
-//   const cookies = nookies.get(ctx);
-//   const response = await api.get(`users/${cookies["motorsshop.idUser"]}`, {
-//     headers: {
-//       Authorization: `Bearer ${cookies[cookies["motorsshop.token"]]}`,
-//     },
-//   });
-
-//   const user: iUser = response.data;
-
-//   return {
-//     props: { user },
-//   };
-// };
 export default Header;
