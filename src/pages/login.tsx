@@ -6,7 +6,7 @@ import { ModalEditAddress } from "@/components/modalEditAddress";
 export default function Login() {
   return (
     <>
-      <Header isLoggedIn={false}/>
+      <Header />
       <FormLogin />
       <FooterComponete/>
     </>

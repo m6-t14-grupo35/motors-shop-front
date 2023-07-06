@@ -2,7 +2,6 @@ import Header from "@/components/Header/header";
 import { FooterComponete } from "@/components/footer";
 import { ListCard } from "@/components/listCard";
 import { ModalEditAddress } from "@/components/modalEditAddress";
-import { ProfileListCard } from "@/components/userListCard";
 import { UserContext } from "@/contexts/userContext";
 import { useContext } from "react";
 
@@ -16,7 +15,7 @@ export default function User() {
 
   return (
     <div className="bg-grey-8">
-      <Header isLoggedIn={true} user={user} />
+      <Header />
       <div className="bg-brand-1 w-screen h-[357px]"></div>
       <div className="absolute top-0 w-screen left-1/2 transform -translate-x-1/2">
         <div className="flex justify-center items-center flex-col">

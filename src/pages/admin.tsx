@@ -3,7 +3,6 @@ import { IstateProvisorio } from "@/interfaces/componentProps.interface";
 import { ModalAddAd } from "@/components/modals/addAd";
 import { useState } from "react";
 import { FooterComponete } from "@/components/footer";
-import { AdminListCard } from "@/components/adminListCard";
 import { ListCard } from "@/components/listCard";
 import { AdCard } from "@/components/adCard";
 
@@ -15,12 +14,45 @@ const user = {
 
 export default function Admin() {
   const [modal, setModal] = useState<IstateProvisorio>(null)
+  const ads = [
+      {
+        id: "1",
+        brand: "Chevette",
+        model: "SL",
+        year: "1988",
+        fuel: "Gasolina",
+        km: 20000,
+        color: "vermelho",
+        price: 90000.99,
+        description: "O carro mais desejado dos 90's em perfeito estado.",
+        is_sold: true,
+        priceFIPE: 90000.99,
+        user_id: "1212",
+        created_at: "2023-01-01"
+      },
+      {
+        id: "2",
+        brand: "Chevette",
+        model: "SL",
+        year: "1988",
+        fuel: "Gasolina",
+        km: 20000,
+        color: "vermelho",
+        price: 90000.99,
+        description: "O carro mais desejado dos 90's em perfeito estado.",
+        is_sold: true,
+        priceFIPE: 90000.99,
+        user_id: "2352",
+        created_at: "2023-01-01"
+      }
+  ]
+
   return (
     <div className="bg-grey-8">
       <>
         {modal === "add" && <ModalAddAd closeFunction={() => setModal(null)}/>}
       </>
-      <Header isLoggedIn={true} user={user} />
+      <Header />
       <div className="bg-brand-1 w-screen h-[357px]"></div>
 
       <div className="absolute top-0 w-screen left-1/2 transform -translate-x-1/2">

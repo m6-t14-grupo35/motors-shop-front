@@ -10,7 +10,7 @@ export default function Register() {
   
   return (
     <>
-      <Header isLoggedIn={false}/>
+      <Header />
       <FormRegister/>
       <FooterComponete/>
       <ModalRegister toogleModal={toogleModalRegister}/>
