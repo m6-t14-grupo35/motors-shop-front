@@ -12,6 +12,7 @@ export const userRegisterSchema = z.object({
   phone_number: z.string().nonempty('Celular é obrigatório').max(30, 'Celular deve ter, no máximo, 30 caracteres'),
   birthdate: z.string().nonempty('Data de nascimento é obrigatória'),
   description: z.string().nonempty('Descrição é obrigatória'),
+  image: z.string().optional(),
   zip_code: z.string().nonempty('CEP é obrigatório').length(8, 'CEP deve ter 8 caracteres'),
   state: z.string().nonempty('Estado é obrigatório').max(30, 'Estado deve ter, no máximo, 30 caracteres'),
   city: z.string().nonempty('Cidade é obrigatória').max(30, 'Cidade deve ter, no máximo, 30 caracteres'),
@@ -47,9 +48,24 @@ export const updatePasswordSchema = z.object({
   path: ['confirmation']
 })
 
+// export const userEditeSchema = userRegisterSchema.partial()
+
+export const userEditeSchema = z.object({
+  name: z.string().nonempty('Nome é obrigatório').max(40, 'Nome deve ter, no máximo, 40 caracteres'),
+  email: z.string().email('Deve ser um email válido').nonempty('Email é obrigatório').max(128, 'Email deve ter, no máximo, 128 caracteres'),
+  cpf: z.string().nonempty('CPF é obrigatório').length(11, 'CPF deve ter 11 caracteres'),
+  phone_number: z.string().nonempty('Celular é obrigatório').max(30, 'Celular deve ter, no máximo, 30 caracteres'),
+  birthdate: z.string().nonempty('Data de nascimento é obrigatória'),
+  description: z.string().nonempty('Descrição é obrigatória'),
+  is_seller: z.boolean().default(false),
+})
+
+
 export type tUserLoginData = z.infer<typeof userLoginSchema>;
 
 export type tUserRegisterData = z.infer<typeof userRegisterSchema>;
+
+export type tUserEditeData = z.infer<typeof userEditeSchema>;
 
 export type tUpdateAddressData = z.infer<typeof addressUpdateSchema>;
 

@@ -13,6 +13,7 @@ interface IUserProviderData {
   isOpenModalAddress: boolean
   toogleModalAddress: () => void
   setIsOpenModalAddress: Dispatch<SetStateAction<boolean>>
+  updateAddress: (data: tUpdateAddressData, token: string) => void
 }
 
 export const UserContext = createContext({} as IUserProviderData);
@@ -26,7 +27,11 @@ export const UserProvider = ({children}: IProps) => {
   }
 
   const updateAddress = (data: tUpdateAddressData, token: string) => {
-    api.patch(`addresses/${token}`, data)
+    api.patch('users/', data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
     .then(() => {
       toast.success('Endereço editado com sucesso!')
       toogleModalAddress()
@@ -38,7 +43,7 @@ export const UserProvider = ({children}: IProps) => {
   }
 
   return (
-    <UserContext.Provider value={{isOpenModalAddress, setIsOpenModalAddress, toogleModalAddress}}>
+    <UserContext.Provider value={{isOpenModalAddress, setIsOpenModalAddress, toogleModalAddress, updateAddress}}>
       {children}
     </UserContext.Provider>
   )

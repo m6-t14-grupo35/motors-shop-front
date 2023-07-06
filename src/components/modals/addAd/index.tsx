@@ -1,36 +1,22 @@
 import Input from '@/components/input';
-import * as z from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IaddAd } from '@/interfaces/forms.interfaces';
-import { useState } from "react";
+import { useContext, useState } from "react";
 import React, { forwardRef, Ref } from "react";
 import { MdClose } from "react-icons/md"
 import { IaddImageInputProps } from '@/interfaces/componentProps.interface';
 import { Button_24, Button_3, Button_7 } from '@/components/buttons';
-
-const maxYear = new Date().getFullYear() + 1
-
-const schema = z.object({
-  brand: z.string().nonempty('insira a marca'),
-  model: z.string().nonempty('insira o modelo'),
-  year: z.coerce.number().min(1800, 'ano invalido').max(maxYear, 'ano invalido'),
-  fuel: z.string().min(0,'insira um valor positivo'),
-  milage: z.coerce.number().min(0,'insira um valor positivo'),
-  collor: z.string().nonempty('insira a marca'),
-  priceFIPE: z.coerce.number().min(0,'insira um valor positivo'),
-  selePrice: z.coerce.number().min(0,'insira um valor positivo'),
-  description: z.string().nonempty('insira uma descrição'),
-  image_1:z.string().url('url invalida').nonempty('imagem obrigatoria'),
-  image_2:z.string().optional(),
-  image_3:z.string().optional(),
-  image_4:z.string().url('url invalida').optional(),
-  image_5:z.string().url('url invalida').optional(),
-  image_6:z.string().url('url invalida').optional()
-})
+import { api } from '@/services/api';
+import { parseCookies } from 'nookies';
+import { addAdSchema } from '@/schemas/ad.schemas';
+import { toast } from "react-toastify";
+import { AdContext } from '@/contexts/adContext';
 
 export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
-  const [imageCount, setImageCount] = useState(2);
+  const [imageCount, setImageCount] = useState(0);
+  const token = parseCookies().motorsShopToken
+  const {toogleModalAdSuccess} = useContext(AdContext)
 
   const addImageField = () => {
     if (imageCount < 5) {
@@ -39,23 +25,42 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
   };
 
   const registerFunction = async (data:IaddAd) => {
-    // const response = await api.post("ads/", data, {
-    //   headers:{
-    //     Authorization:`Bearer ${token}`
-    //   }
-    // })
-    // if(response.status == 200){
-    //
-    // }
+    const { cover ,image_1 ,image_2, image_3, image_4, image_5, ...otherData } = data
+    const adData = otherData
+    const imagesData = {cover:cover,image_1:image_1, image_2:image_2, image_3:image_3, image_4:image_4, image_5:image_5}
+
+    const responseAd = await api.post("ads/", adData, {
+      headers:{
+        Authorization:`Bearer ${token}`
+      }
+    })
+
+    if(responseAd.status == 201){
+
+      const responseImages = await api.post(`images/${responseAd.data.id}`, imagesData, {
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      })
+      if(responseImages.status == 201){
+        reset()
+        toogleModalAdSuccess()
+      }else{
+        toast.error("Houve um erro ao cadastrar as imagens")
+      }
+
+    }else{
+      toast.error("Houve um erro reveja os dados e tente novamente")
+    }
+
   }
 
-  const {register, handleSubmit, formState: {errors}} = useForm<IaddAd>({
-    resolver: zodResolver(schema),
+  const {register, handleSubmit, reset, formState: {errors}} = useForm<IaddAd>({
+    resolver: zodResolver(addAdSchema),
     shouldUnregister: false
   });
-  // const onSubmit: SubmitHandler<IaddAd> = data => registerFunction(data);
-  const onSubmit: SubmitHandler<IaddAd> = data => {console.log(data)};
-
+  const onSubmit: SubmitHandler<IaddAd> = data => {registerFunction(data)};
+  // const onSubmit: SubmitHandler<IaddAd> = data => {console.log(data)};
 
   return(
     <div className='fixed inset-0 flex justify-center items-center w-screen bg-bg-50 z-50'>
@@ -79,6 +84,8 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
               {...register('brand')}
             />
 
+
+
             <Input
               id="model"
               type="text"
@@ -101,11 +108,11 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
               />
 
               <div className='w-full'>
-              <label
-                className="whitespace-nowrap block text-sm font-medium leading-6 text-gray-900"
-              >
-                Combustivel
-              </label>
+                <label
+                  className="whitespace-nowrap block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Combustivel
+                </label>
 
                 <select
                   id="fuel"
@@ -113,9 +120,13 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
                   {...register('fuel')}
                   className='pl-[14px] block w-full rounded-md border-0 py-[8px] text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-[1.5px] outline-brand-2'
                 >
-                  <option value={1}>Gasolina</option>
-                  <option value={2}>Álcool</option>
-                  <option value={3}>Outros</option>
+
+                  <option value={'Gasolina'}>Gasolina</option>
+                  <option value={'Etanol'}>Etanol</option>
+                  <option value={'Diesel'}>Diesel</option>
+                  <option value={'GLP'}>Outros</option>
+                  <option value={'hibrido'}>hibrido</option>
+                  <option value={'Eletric'}>Elétrico</option>
                 </select>
               </div>
 
@@ -128,8 +139,8 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
                 label="Quilometragem"
                 placeholder='30.000'
                 required={true}
-                error={errors.milage?.message}
-                {...register('milage')}
+                error={errors.km?.message}
+                {...register('km')}
               />
 
               <Input
@@ -138,8 +149,8 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
                 label="Cor"
                 placeholder='Branco'
                 required={true}
-                error={errors.collor?.message}
-                {...register('collor')}
+                error={errors.color?.message}
+                {...register('color')}
               />
             </div>
 
@@ -160,8 +171,8 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
                 label="Preço"
                 placeholder='R$ 50.000,00'
                 required={true}
-                error={errors.selePrice?.message}
-                {...register('selePrice')}
+                error={errors.price?.message}
+                {...register('price')}
               />
             </div>
 
@@ -191,27 +202,27 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
               label="Imagem de capa"
               placeholder='https://image.com'
               required={true}
-              error={errors.image_1?.message}
-              {...register('image_1')}
+              error={errors.cover?.message}
+              {...register('cover')}
             />
 
             {Array.from({ length: imageCount }, (_, index) => (
               <Input
-                key={`image_${index + 2}`}
-                id={`image_${index + 2}`}
+                key={`image_${index + 1}`}
+                id={`image_${index + 1}`}
                 type="text"
-                label={`${index + 2}° Imagem da galeria`}
+                label={`${index + 1}° Imagem da galeria`}
                 placeholder="https://image.com"
                 required={false}
                 // @ts-ignore
-                {...register(`image_${index + 2}`)}
+                {...register(`image_${index + 1}`)}
               />
             ))}
 
             <Button_7 type="button" text="Adicionar campo para imagem da galeria" onClick={addImageField}/>
 
             <div className='flex flex-wrap gap-[10px] justify-between sw370:justify-end w-full mt-[30px]'>
-              <Button_3 type="button" text="Cancelar" height={2}/>
+              <Button_3 onClick={() => closeFunction()} type="button" text="Cancelar" height={2}/>
               <Button_24 type="submit" text="Criar anúncio" height={2}/>
             </div>
           </form>
