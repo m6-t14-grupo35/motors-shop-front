@@ -14,22 +14,13 @@ import { ModalEditeProfile } from "@/components/modals/editeProfile";
 import { MoreImages } from "@/components/moreImages";
 import { SellerInfos } from "@/components/sellerInfos";
 import { IadOptional, IcommentProps, IstateProvisorio } from "@/interfaces/componentProps.interface";
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-export default function adPage () {
+export default function AdPage () {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter();
   const { id } = router.query;
-
-  useEffect(() => {
-
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-
-
 
   const user = {userName: "Chapolin Colorado", userImage:undefined}
   const comentarios:IcommentProps[] = [{userId:'sdasda', userName:"Ismael Silva", date:"2023-05-10T17:53:02.298399Z", text:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
