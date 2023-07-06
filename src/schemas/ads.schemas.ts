@@ -3,7 +3,7 @@ import { z } from "zod"
 export const adSchema = z.object({
   brand: z.string().nonempty().max(30),
   model: z.string().nonempty().max(50),
-  year: z.number().nonnegative(),
+  year: z.string(),
   fuel: z.enum(["Gasolina", "Etanol", "Diesel", "GLP", "Hybrid", "Electric"]),
   km: z.number().nonnegative(),
   color: z.string().nonempty().max(30),

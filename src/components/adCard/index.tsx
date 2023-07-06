@@ -10,10 +10,17 @@ import { adData } from "@/schemas/ads.schemas";
 import { parseCookies } from "nookies";
 
 interface ICardProps {
-  ad: adData;
+  year: string;
+  km: number;
+  brand: string;
+  model: string;
+  priceFIPE: any;
+  price: any;
+  user_id: any;
+  is_sold: boolean;
 }
 
-export const AdCard = ({ ad }: ICardProps) => {
+export const AdCard = ({ ad }: {ad: ICardProps}) => {
   const router = useRouter();
   const token = parseCookies().motorsShopToken
   const [cardUser, setCardUser] = useState<iUser | null>(null);

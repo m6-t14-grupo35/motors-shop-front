@@ -9,7 +9,7 @@ export interface iAd {
   price: number;
   priceFIPE: number;
   description: string;
-  is_sold: boolean;
+  is_sold?: boolean;
   user_id: string;
   created_at: string;
 }
