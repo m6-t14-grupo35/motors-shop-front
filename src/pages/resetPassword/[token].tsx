@@ -9,7 +9,7 @@ export default function SendEmailResetPassword () {
 
   return (
     <>
-      <Header isLoggedIn={false}/>
+      <Header />
       <FormResetPassword token={token as string}/>
       <FooterComponete/>
     </>

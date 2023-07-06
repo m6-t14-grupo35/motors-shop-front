@@ -5,7 +5,7 @@ import { FormSendEmail } from "@/components/formSendEmail"
 export default function SendEmailResetPassword () {
   return (
     <>
-      <Header isLoggedIn={false}/>
+      <Header />
       <FormSendEmail/>
       <FooterComponete/>
     </>
