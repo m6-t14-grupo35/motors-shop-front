@@ -43,13 +43,13 @@ export default function Admin() {
           </div>
           <div className="flex-col justify-center md:pl-[60px] w-screen gap-[40px] py-[50px] mx-[60px]">
             <div className="flex md:flex-wrap gap-12 md:justify-normal transition-all">
-              {ads.map(ad => {return <AdCard key={ad.id} ad={ad} />})}
+              {ads.map((ad: any) => {return <AdCard key={ad.id} ad={ad} />})}
             </div>
           </div>
           </div>
           <FooterComponete />
         </div>
       </div>
-    </div>
-  );
+  </div>
+  )
 }

@@ -91,14 +91,14 @@ export const Filter = ({toggleFilter}: IFilterProps) => {
       
       <h2 className="heading-4-600 my-5">Marca</h2>
       {brands.length &&
-        brands.map((brand) => <button onClick={() => setFilteredAdList([adList.filter(ad: => brand === ad.brand)])} className="heading-6-500 text-grey-3" key={brand}>{brand}</button>
+        brands.map((brand) => <button onClick={() => {setFilteredAdList([adList.filter(ad => brand === ad.brand)])
+        
+        }} className="heading-6-500 text-grey-3" key={brand}>{brand}</button>
       )}
       
       <h2 className="heading-4-600 my-5">Modelo</h2>
       {models.length &&
-        models.map((model)=> <button onClick={() => {setAdList(ads.filter(ad => ad.model.toLowerCase() == model))
-        
-        }} className="heading-6-500 text-grey-3" key={model}>{model}</button>
+        models.map((model)=> <button onClick={() => setAdList(ads.filter(ad => ad.model.toLowerCase() == model))} className="heading-6-500 text-grey-3" key={model}>{model}</button>
       )}
       
       <h2 className="heading-4-600 my-5">Cor</h2>

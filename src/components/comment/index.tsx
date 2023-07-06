@@ -1,12 +1,14 @@
 import { IcommentProps } from "@/interfaces/componentProps.interface";
 import { calculateElapsedTime, getInitials } from "@/utils/functions";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { RiMore2Line, RiPencilLine, RiDeleteBinLine } from 'react-icons/ri';
 import { DeleteCommentConfirmation } from "../modals/deleteCommentConfimation";
+import { parseCookies } from "nookies";
 
-export const CommentComponent = ({ userImage, userName, date, text }: IcommentProps) => {
+export const CommentComponent = ({ userImage, userName, date, text, userId }: IcommentProps) => {
   const [showMenu, setShowMenu] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const userIdCookie = parseCookies().motorsshopIdUser
 
   const handleMenuClick = () => {
     setShowMenu(!showMenu);
@@ -24,7 +26,7 @@ export const CommentComponent = ({ userImage, userName, date, text }: IcommentPr
     <>
     {showDeleteModal && <DeleteCommentConfirmation id="dsfsdfsdfsdfs" closeFunction={() => setShowDeleteModal(false)}/>}
     <div className="bg-white flex w-full max-w-[751px] rounded relative">
-      {showMenu && (
+      {showMenu &&  (
         <div className="absolute right-0 top-[40px] z-10 bg-white border border-gray-300 rounded shadow-md">
           <button
             className="flex items-center gap-2 p-2 hover:bg-gray-100"
@@ -76,13 +78,14 @@ export const CommentComponent = ({ userImage, userName, date, text }: IcommentPr
 
         <p className="text-grey-2 body-2-400">{text}</p>
       </div>
-
-      <button
-        className="absolute top-2 right-2 p-2 rounded-full hover:bg-gray-100"
-        onClick={handleMenuClick}
-      >
-        <RiMore2Line />
-      </button>
+      { userIdCookie === userId &&
+        <button
+          className="absolute top-2 right-2 p-2 rounded-full hover:bg-gray-100"
+          onClick={handleMenuClick}
+        >
+          <RiMore2Line />
+        </button>
+      }
     </div>
     </>
   );
