@@ -21,6 +21,9 @@ interface ICardProps {
 }
 
 export const AdCard = ({ ad }: {ad: ICardProps}) => {
+  if (ad.is_sold === undefined) {
+    ad.is_sold = false
+  }
   const router = useRouter();
   const token = parseCookies().motorsShopToken
   const [cardUser, setCardUser] = useState<iUser | null>(null);
