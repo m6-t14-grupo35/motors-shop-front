@@ -32,7 +32,7 @@ const Home: NextPage<HomeProps> = ({ ads }: HomeProps) => {
   }, [setAdList, ads])
   return (
    <>
-    <Header />
+    <Header/>
     <Banner/>
     <div className='layout flex max-w-[1600px] mt-[50px] justify-between flex-col md:flex-row-reverse'>
     <div className="my-2 overflow-x-auto mx-[60px] mb-[80px]">

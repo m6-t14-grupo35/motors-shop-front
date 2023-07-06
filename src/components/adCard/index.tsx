@@ -16,7 +16,7 @@ interface ICardProps {
 
 export const AdCard = ({ ad }: ICardProps) => {
   const router = useRouter();
-  const token = Cookies.get('motorsshop.token')
+  const token = Cookies.get('motorsShopToken')
   const [cardUser, setCardUser] = useState<iUser | null>(null);
   const { pathname } = router;
   const getAdUser = useCallback(async () => {
