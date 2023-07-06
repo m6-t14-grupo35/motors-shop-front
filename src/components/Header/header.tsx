@@ -2,21 +2,17 @@ import Image from "next/image";
 import { MenuIcon } from "../hamburger/hamburguer";
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import nookies, { parseCookies } from "nookies";
-import { useRouter } from "next/router";
-import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
 import { api } from "@/services/api";
 import { iUser } from "@/interfaces/cards.interfaces";
-import Cookies from "js-cookie";
-
 
 const Header = () => {
   const [toggle, setToggle] = useState(true);
   const [user, setUser] = useState<iUser | null>(null);
   const [tokenCookies, setTokenCookies] = useState("")
   const [userCookies, setUserCookies] = useState("")
-  const token = Cookies.get('motorsshop.token')
-  const userId = Cookies.get("motorsshop.idUser")
+  const token = parseCookies().motorsShopToken
+  const userId = parseCookies().motorsShopIdUser
   const getUser = useCallback(async () => {
       const response = await api
         .get(`users/${userId}`, {
