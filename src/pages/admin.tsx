@@ -50,6 +50,5 @@ export default function Admin() {
           <FooterComponete />
         </div>
       </div>
-  </div>
   )
 }
