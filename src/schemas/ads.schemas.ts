@@ -10,7 +10,8 @@ export const adSchema = z.object({
   price: z.number().nonnegative(),
   priceFIPE: z.number().nonnegative(),
   description: z.string().nonempty(),
-  is_sold: z.boolean().optional()
+  is_sold: z.boolean().optional(),
+  user_id: z.string().nonempty()
 })
 
 export type adData = z.infer<typeof adSchema>

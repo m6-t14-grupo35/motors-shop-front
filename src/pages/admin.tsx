@@ -42,7 +42,10 @@ export default function Admin() {
               <button onClick={() => setModal("add")} className="flex items-center justify-center w-[160px] h-[48px] py-[12px] px-[28px] border-brand-1 border-2 rounded text-brand-1 bg-white">Criar Anúncio</button>
           </div>
           <div className="flex-col justify-center md:pl-[60px] w-screen gap-[40px] py-[50px] mx-[60px]">
-            <ListCard />
+            <div className="flex md:flex-wrap gap-12 md:justify-normal transition-all">
+              {ads.map(ad => {return <AdCard key={ad.id} ad={ad} />})}
+            </div>
+          </div>
           </div>
           <FooterComponete />
         </div>
