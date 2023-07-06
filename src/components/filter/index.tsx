@@ -91,6 +91,7 @@ export const Filter = ({toggleFilter}: IFilterProps) => {
       
       <h2 className="heading-4-600 my-5">Marca</h2>
       {brands.length &&
+        //@ts-ignore
         brands.map((brand) => <button onClick={() => {setFilteredAdList([adList.filter(ad => brand === ad.brand)])
         
         }} className="heading-6-500 text-grey-3" key={brand}>{brand}</button>
@@ -98,21 +99,28 @@ export const Filter = ({toggleFilter}: IFilterProps) => {
       
       <h2 className="heading-4-600 my-5">Modelo</h2>
       {models.length &&
+        //@ts-ignore
         models.map((model)=> <button onClick={() => {setAdList(ads.filter(ad => ad.model.toLowerCase() == model))
         
         }} className="heading-6-500 text-grey-3" key={model}>{model}</button>
       )}
       
       <h2 className="heading-4-600 my-5">Cor</h2>
-      {carsColors.map((color) => <p onClick={() => setAdList(ads.filter(ad => ad.color == color))} className="heading-6-500 text-grey-3" key={color}>{color}</p>)}
+      {carsColors.map((color) => 
+        //@ts-ignore
+      <p onClick={() => setAdList(ads.filter(ad => ad.color == color))} className="heading-6-500 text-grey-3" key={color}>{color}</p>)}
       
       <h2 className="heading-4-600 my-5">Ano</h2>
       {years.length &&
-        years.map((year) => <p onClick={() => setAdList(ads.filter(ad => ad.year.toString() == year))} className="heading-6-500 text-grey-3" key={year}>{year}</p>)
+        years.map((year) => 
+        //@ts-ignore
+        <p onClick={() => setAdList(ads.filter(ad => ad.year.toString() == year))} className="heading-6-500 text-grey-3" key={year}>{year}</p>)
       }
 
       <h2 className="heading-4-600 my-5">Combustível</h2>
-      {fuels.map((fuel) => <p onClick={() => setAdList(ads.filter(ad => ad.fuel == fuel))} className="heading-6-500 text-grey-3" key={fuel}>{fuel}</p>)}
+      {fuels.map((fuel) => <p onClick={() => 
+        //@ts-ignore
+        setAdList(ads.filter(ad => ad.fuel == fuel))} className="heading-6-500 text-grey-3" key={fuel}>{fuel}</p>)}
 
       <h2 className="heading-4-600 my-5">Km</h2>
       <div className="flex justify-between w-full">
