@@ -25,7 +25,7 @@ export default function AdPage () {
   const user = {userName: "Chapolin Colorado", userImage:undefined}
   const comentarios:IcommentProps[] = [{userId:'sdasda', userName:"Ismael Silva", date:"2023-05-10T17:53:02.298399Z", text:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
   {userId:'sdasda', userName:"juscelino kubitschek", date:"1960-05-10T17:53:02.298399Z", text:"amanhã eu vejo."},
-  {userId:'sdasda',userName:"luiz k.", date:new Date(), text:"ja foi batido?"},]
+  {userId:'sdasda',userName:"luiz k.", date: new Date().toString(), text:"ja foi batido?"},]
   const adProvisorio: IadOptional = {id:"983493a7-99be-422e-8991-9c568754eda2", brand:"uma marca", model:"um modelo", year:2023, fuel:"gasolina", km:5000, color:"uma cor", priceFIPE:52000, price:40000, description:"esse uma descrição bem curta" }
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [seletorProvisorio, setSeletorProvisorio] = useState<IstateProvisorio>(null)
