@@ -1,18 +1,9 @@
-export enum TypeFuels {
-  GASOLINA = "Gasolina",
-  DIESEL = "Diesel",
-  ETANOL = "Etanol",
-  GLP = "GLP",
-  HYBRID = "Hybrid",
-  ELECTRIC = "Electric"
-}
-
 export interface iAd {
   id: string;
   brand: string;
   model: string;
   year: string;
-  fuel: TypeFuels;
+  fuel: "Gasolina" | "Diesel" | "Etanol" | "GLP" | "Hybrid" | "Electric";
   km: number;
   color: string;
   price: number;

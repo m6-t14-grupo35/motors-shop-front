@@ -14,7 +14,9 @@ export const ListCard = () => {
       price: 90000.99,
       description: "O carro mais desejado dos 90's em perfeito estado.",
       is_sold: true,
-      priceFIPE: 90000.99
+      priceFIPE: 90000.99,
+      user_id: "1212",
+      created_at: "2023-01-01"
     },
     {
       id: "2",
@@ -27,7 +29,9 @@ export const ListCard = () => {
       price: 90000.99,
       description: "O carro mais desejado dos 90's em perfeito estado.",
       is_sold: true,
-      priceFIPE: 90000.99
+      priceFIPE: 90000.99,
+      user_id: "2352",
+      created_at: "2023-01-01"
     }
   ]
 
@@ -35,14 +39,9 @@ export const ListCard = () => {
     <>
     <div className="my-2 overflow-x-auto mx-[60px] mb-[80px]">
       <div className="flex md:flex-wrap gap-12 md:justify-normal transition-all">
-        <AdCard isSold={true} price={80000} priceFIPE={90000} />
-        <AdCard isSold={false} price={90000} priceFIPE={80000} />
-        <AdCard isSold={true} />
-        <AdCard isSold={false} />
-        <AdCard isSold={true} />
-        <AdCard isSold={false} />
-        <AdCard isSold={true} />
-        <AdCard isSold={false} />
+
+        <AdCard is_sold={true} price={80000} priceFIPE={90000} brand={"Chevette"} model={"SL"} year={"1988"} fuel={"Gasolina"} km={20000} color={"vermelho"} description={"O carro mais desejado dos 90's em perfeito estado."} user_id={"2352"} created_at={"2023-01-01"} />
+        
       </div>
     </div>
     </>
