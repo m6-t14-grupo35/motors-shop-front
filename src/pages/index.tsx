@@ -14,7 +14,7 @@ import { AdDescription } from '@/components/adDescription'
 import { useContext, useEffect } from 'react'
 import { AdContext } from '@/contexts/adContext'
 import { GetServerSideProps, NextPage } from 'next'
-import { iAd, TypeFuels } from '@/interfaces/cards.interfaces'
+import { iAd } from '@/interfaces/cards.interfaces'
 import { api } from '@/services/api'
 
 const inter = Inter({ subsets: ["latin"] });
@@ -43,7 +43,9 @@ const Home: NextPage<HomeProps> = ({ ads }: HomeProps) => {
             <Image src={"/carro-quebrado.png"} width={300} height={300} alt={"Erro!"} />
           </div>
         ): 
-        adList.map(ad => {return <AdCard key={ad.id} ad={ad} />})
+        adList.map(ad => {return <AdCard 
+          //@ts-ignore
+          key={ad.id} is_sold={ad.is_sold} price={ad.price} priceFIPE={ad.priceFIPE} brand={ad.brand} model={ad.model} year={ad.year} fuel={ad.fuel} km={ad.km} color={ad.color} description={ad.description} user_id={ad.user_id} created_at={ad.created_at} />})
         }
       </div>
     </div>
