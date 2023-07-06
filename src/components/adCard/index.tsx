@@ -8,7 +8,6 @@ import { api } from "@/services/api";
 import { iAd, iUser } from "@/interfaces/cards.interfaces";
 import { adData } from "@/schemas/ads.schemas";
 import { parseCookies } from "nookies";
-import Cookies from "js-cookie"
 
 interface ICardProps {
   ad: adData;
@@ -16,7 +15,7 @@ interface ICardProps {
 
 export const AdCard = ({ ad }: ICardProps) => {
   const router = useRouter();
-  const token = Cookies.get('motorsshop.token')
+  const token = parseCookies().motorsShopToken
   const [cardUser, setCardUser] = useState<iUser | null>(null);
   const { pathname } = router;
   const getAdUser = useCallback(async () => {
