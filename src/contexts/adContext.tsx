@@ -42,15 +42,19 @@ interface IProps {
 interface IAdProviderData {
 	adList: iAd[]
 	setAdList: Dispatch<SetStateAction<iAd[]>>
+
+	filteredAdList: iAd[]
+	setFilteredAdList: Dispatch<SetStateAction<iAd[]>>
 }
 
 export const AdContext = createContext({} as IAdProviderData)
 
 export const AdProvider = ({children}: IProps) => {
 	const [adList, setAdList] = useState<iAd[]>([])
+	const [filteredAdList, setFilteredAdList] = useState<iAd[]>([])
 
 	return(
-		<AdContext.Provider value={{adList, setAdList}} >
+		<AdContext.Provider value={{adList, setAdList, filteredAdList, setFilteredAdList}} >
 			{children}
 		</AdContext.Provider>
 	)

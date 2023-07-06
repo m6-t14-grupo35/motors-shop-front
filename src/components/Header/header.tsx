@@ -1,34 +1,36 @@
 import Image from "next/image";
 import { MenuIcon } from "../hamburger/hamburguer";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import nookies, { parseCookies } from "nookies";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import { api } from "@/services/api";
 import { iUser } from "@/interfaces/cards.interfaces";
+import Cookies from "js-cookie";
+
 
 const Header = () => {
   const [toggle, setToggle] = useState(true);
-  const [user, setUser] = useState<iUser | null>(null)
-  const cookies = parseCookies();
+  const [user, setUser] = useState<iUser | null>(null);
+  const [tokenCookies, setTokenCookies] = useState("")
+  const [userCookies, setUserCookies] = useState("")
+  const token = Cookies.get('motorsshop.token')
+  const userId = Cookies.get("motorsshop.idUser")
+  const getUser = useCallback(async () => {
+      const response = await api
+        .get(`users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        setUser(response.data)
+    }, [token, userId])
+
   useEffect(() => {
-    const getUser = async () => {
+    getUser().catch(console.error)
+  }, [getUser]);
 
-      const response = await api.get(`users/${cookies["motorsshop.idUser"]}`, {
-        headers: {
-          Authorization: `Bearer ${cookies["motorsshop.token"]}`,
-        },
-      });
-
-      const loggedUser: iUser = response.data
-      console.log(loggedUser)
-      response.status === 401? null : setUser(loggedUser)
-    }
-    cookies["motorsshop.token"] ? getUser() : null
-  }, [cookies])
-
-  console.log(user)
   return (
     <>
       <header
