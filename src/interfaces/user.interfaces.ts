@@ -14,4 +14,5 @@ export interface Iuser{
   complement: string
   is_seller: boolean
   created_at:Date
+  image:string
 }

@@ -58,6 +58,7 @@ export const userEditeSchema = z.object({
   birthdate: z.string().nonempty('Data de nascimento é obrigatória'),
   description: z.string().nonempty('Descrição é obrigatória'),
   is_seller: z.boolean().default(false),
+  image: z.string().url('url invalida').optional()
 })
 
 

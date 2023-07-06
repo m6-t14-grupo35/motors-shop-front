@@ -41,6 +41,8 @@ export const ModalEditeProfile = ({closeFunction, openConfirmation}:Iconfirmatio
       })
 
       .then((response) => {
+        console.log(response);
+        
         setUser(transformObject(response.data[0]))
         setEmailstt(response.data[0].email)
       })
@@ -94,7 +96,7 @@ export const ModalEditeProfile = ({closeFunction, openConfirmation}:Iconfirmatio
       <div className='w-full max-w-[520px] bg-white rounded py-[20px] px-[30px] overflow-y-auto max-h-[96%] custom-scrollbar'>
           <div className='w-full flex justify-between '>
             <h2 className='text-[1rem] font-bold leading-[1.25rem] mb-[15px]'>Editar perfil</h2>
-            <button onClick={() => closeFunction()}>
+            <button onClick={() => console.log(user)}>
               <MdClose className='text-grey-3 text-[20px] font-extrabold'/>
             </button>
           </div>
@@ -146,6 +148,12 @@ export const ModalEditeProfile = ({closeFunction, openConfirmation}:Iconfirmatio
                 <button type='button' className={`button-big-text border border-grey-4 rounded w-1/2 h-10 ${isSellerSelected ? 'text-grey-whiteFixed bg-brand-1' : 'border-grey-4'}`} onClick={() => handleSellerClick()}>Anunciante</button>
               </div>
 
+            </fieldset>
+
+            <fieldset className='flex flex-col mb-5'>
+              <label className='input-label mb-2'>Imagem de perfil</label>
+              <textarea  defaultValue={user?.image} {...register('image')} rows={3} placeholder='http://image.com' className='rounded pl-3 pt-3 border border-grey-7 placeholder:text-grey-3 outline-1 outline-brand-2'/>
+              {errors && <p aria-label='error' className='text-red-700 text-[0.875rem] mt-1'>{errors.image?.message}</p>}
             </fieldset>
 
             <div className="flex flex-wrap sw515:justify-between gap-y-[8px]">
