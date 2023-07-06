@@ -57,7 +57,6 @@ export const ModalAddAd = ({closeFunction}: {closeFunction:() => void}) => {
     shouldUnregister: false
   });
   const onSubmit: SubmitHandler<IaddAd> = data => {registerFunction(data)};
-  // const onSubmit: SubmitHandler<IaddAd> = data => {console.log(data)};
 
   return(
     <div className='fixed inset-0 flex justify-center items-center w-screen bg-bg-50 z-50'>

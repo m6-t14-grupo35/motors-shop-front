@@ -74,6 +74,7 @@ export const transformObject = (obj: Iuser) => {
     phone_number: rest.phone_number,
     birthdate: formattedBirthdate,
     description: rest.description,
-    is_seller: rest.is_seller
+    is_seller: rest.is_seller,
+    image:rest.image
   };
 }

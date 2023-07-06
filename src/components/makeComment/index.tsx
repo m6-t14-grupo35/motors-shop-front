@@ -57,14 +57,7 @@ export const MakeComment = ({userName, userImage, adId}: ImakeCommentProps) =>{
       toast.error('verifique seu commentario e tente novamente')
     }
   }
-
-  // const {register, handleSubmit, formState: {errors}} = useForm<taddComent>({
-  //   resolver: zodResolver(addComent),
-  //   shouldUnregister: false
-  // });
-  // const onSubmit: SubmitHandler<taddComent> = data => {postComment(data)};
-  // const onSubmit: SubmitHandler<taddComent> = data => {console.log(`${data.text} --- ${commentText}`)};
-
+  
   return(
     <div className="py-[36px] px-[34px] lg:px-[44px] bg-white rounded w-full max-w-[751px]">
       <div className="flex flex-col gap-[24px] w-full">
@@ -95,7 +88,7 @@ export const MakeComment = ({userName, userImage, adId}: ImakeCommentProps) =>{
             placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
             className="w-full h-[128px] px-4 py-4 text-grey-1 placeholder-grey-3 placeholder-top border-[1px] border-grey-7 outline-[1.5px] outline-brand-2"
           />
-          <p>{personError}</p>
+          <p className="text-sm/5 text-red-700">{personError}</p>
 
           <button
           onClick={() => setIsSubject(true)}
