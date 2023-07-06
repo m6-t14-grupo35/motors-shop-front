@@ -5,6 +5,7 @@ import { useState } from "react";
 import { FooterComponete } from "@/components/footer";
 import { AdminListCard } from "@/components/adminListCard";
 import { ListCard } from "@/components/listCard";
+import { AdCard } from "@/components/adCard";
 
 const user = {
   name: "Caio",
