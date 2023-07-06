@@ -1,8 +1,5 @@
 import { iAd } from "@/interfaces/cards.interfaces";
 import { AdCard } from "../adCard";
-import { iAd } from "@/interfaces/cards.interfaces";
-
-
 
 export const ListCard = () => {
   const list: iAd[] = [
