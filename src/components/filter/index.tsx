@@ -1,9 +1,17 @@
+import { AdContext } from "@/contexts/adContext";
+import { iAd } from "@/interfaces/cards.interfaces";
 import { apiKenzieKars } from "@/services/api";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {AiOutlineClose} from "react-icons/ai";
+import { GetServerSideProps } from "next";
+import { api } from "@/services/api";
 
 interface IFilterProps {
   toggleFilter: () => void,
+}
+
+interface iAdProps {
+  ads: iAd[]
 }
 
 interface ICar {
@@ -16,6 +24,7 @@ interface ICar {
 }
 
 export const Filter = ({toggleFilter}: IFilterProps) => {
+  const {adList, setFilteredAdList} = useContext(AdContext)
   const [brands, setBrands] = useState([] as string[]);
   const [models, setModels] = useState([] as string[]);
   const carsColors = ["Azul", "Branca", "Cinza", "Prata", "Preta", "Verde"];
@@ -75,31 +84,35 @@ export const Filter = ({toggleFilter}: IFilterProps) => {
 
   return (
     <>
-      <header className="flex justify-between w-full my-2 md:hidden">
+      <header className="flex justify-between w-full my-2 md:hidden" >
         <p className="heading-7-500">Filtro</p>
         <AiOutlineClose className="text-grey-4 cursor-pointer" onClick={toggleFilter}/>
       </header>
       
       <h2 className="heading-4-600 my-5">Marca</h2>
       {brands.length &&
-        brands.map((brand) => <p className="heading-6-500 text-grey-3" key={brand}>{brand}</p>
+        brands.map((brand) => <button onClick={() => {setFilteredAdList([adList.filter(ad: => brand === ad.brand)])
+        
+        }} className="heading-6-500 text-grey-3" key={brand}>{brand}</button>
       )}
       
       <h2 className="heading-4-600 my-5">Modelo</h2>
       {models.length &&
-        models.map((model)=> <p className="heading-6-500 text-grey-3" key={model}>{model}</p>
+        models.map((model)=> <button onClick={() => {setAdList(ads.filter(ad => ad.model.toLowerCase() == model))
+        
+        }} className="heading-6-500 text-grey-3" key={model}>{model}</button>
       )}
       
       <h2 className="heading-4-600 my-5">Cor</h2>
-      {carsColors.map((color) => <p className="heading-6-500 text-grey-3" key={color}>{color}</p>)}
+      {carsColors.map((color) => <p onClick={() => setAdList(ads.filter(ad => ad.color == color))} className="heading-6-500 text-grey-3" key={color}>{color}</p>)}
       
       <h2 className="heading-4-600 my-5">Ano</h2>
       {years.length &&
-        years.map((year) => <p className="heading-6-500 text-grey-3" key={year}>{year}</p>)
+        years.map((year) => <p onClick={() => setAdList(ads.filter(ad => ad.year.toString() == year))} className="heading-6-500 text-grey-3" key={year}>{year}</p>)
       }
 
       <h2 className="heading-4-600 my-5">Combustível</h2>
-      {fuels.map((fuel) => <p className="heading-6-500 text-grey-3" key={fuel}>{fuel}</p>)}
+      {fuels.map((fuel) => <p onClick={() => setAdList(ads.filter(ad => ad.fuel == fuel))} className="heading-6-500 text-grey-3" key={fuel}>{fuel}</p>)}
 
       <h2 className="heading-4-600 my-5">Km</h2>
       <div className="flex justify-between w-full">
@@ -119,3 +132,4 @@ export const Filter = ({toggleFilter}: IFilterProps) => {
     </>
   )
 }
+

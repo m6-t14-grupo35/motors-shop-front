@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Filter } from '../filter'
 import { ListCard } from '../listCard';
+import { iAd } from '@/interfaces/cards.interfaces';
+
 
 export const ButtonFilter = () => {
   const [isOpenFilter, setIsOpenFilter] = useState(false);

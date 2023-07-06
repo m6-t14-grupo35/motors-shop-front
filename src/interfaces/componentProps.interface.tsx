@@ -18,6 +18,7 @@ export interface IcommentProps {
   userName: string
   date: string
   text: string
+  userId:string
 }
 
 export interface ImakeCommentProps {
@@ -81,7 +82,7 @@ export interface IediteProps {
   closeFunction: () => void
 }
 
-export type IstateProvisorio = null | "add" | "edite" | "editeProfile" | "deleteProfile" | "deleteAd"
+export type IstateProvisorio = null | "add" | "edite" | "editeProfile" | "deleteProfile" | "deleteAd" | "editComment"
 
 export interface IconfirmationDeleteAccount {
   closeFunction: () => void
